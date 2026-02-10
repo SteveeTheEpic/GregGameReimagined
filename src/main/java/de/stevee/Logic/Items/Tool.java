@@ -9,7 +9,11 @@ public class Tool extends Item{
         this.tier = tier;
         this.quantity = 1;
     }
+
     public void addTier(int tiers) {
         this.tier += tiers;
+    }
+    public void setTier(int tier) {
+        this.tier = tier;
     }
 }

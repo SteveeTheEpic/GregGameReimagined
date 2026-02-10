@@ -2,16 +2,12 @@ package de.stevee.Windows.panels;
 
 import de.stevee.Logic.Items.Tool;
 import de.stevee.Logic.Machine.Machine;
-import de.stevee.ui.UI;
 
 import static de.stevee.Utils.Items.Items_List;
 
-public class InventoryPanel extends DefaultPanel {
-    private final UI ui;
-
-    public InventoryPanel(String title) {
+public class MachinePanel extends DefaultPanel{
+    public MachinePanel(String title) {
         super(title);
-        ui = UI.getINSTANCE();
     }
 
     public void refresh() {
@@ -19,11 +15,9 @@ public class InventoryPanel extends DefaultPanel {
         Items_List.forEach((item) -> {
             item.update();
             if (item.showing && (item instanceof Tool tool)) {
-                getList().addItem("%s's Tier: %d".formatted(tool.name, tool.tier), () -> {});
             } else if (item.showing && (item instanceof Machine machine)) {
-
+                getList().addItem(machine.name + ": " + machine.quantity, () -> {});
             } else if (item.showing) {
-                getList().addItem(item.name + ": " + item.quantity, () -> {});
             }
         });
     }

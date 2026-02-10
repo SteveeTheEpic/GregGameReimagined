@@ -4,6 +4,7 @@ public enum Section {
     FARM("Farm"),
     CRAFT("Craft"),
     INVENTORY("Inventory"),
+    MACHINES("Machines"),
     QUIT("Quit");
 
     private final String title;

@@ -43,11 +43,11 @@ public class Controller {
 
         // Log scroll should not steal focus or change selections
         if (k.getKeyType() == KeyType.PageUp) {
-            ui.scrollLog(-3);
+            ui.scrollLog(+3);
             return true;
         }
         if (k.getKeyType() == KeyType.PageDown) {
-            ui.scrollLog(+3);
+            ui.scrollLog(-3);
             return true;
         }
 

@@ -1,6 +1,9 @@
 package de.stevee.Logic.Items;
 
 import de.stevee.Utils.Items;
+import de.stevee.ui.UI;
+
+import static de.stevee.Utils.Items.Omnitool;
 
 public class Item {
 
@@ -59,7 +62,12 @@ public class Item {
     }
 
     public void farm() {
-        this.update();
-        this.addQuantity(1);
+        if (Omnitool.tier >= requiredTier) {
+            this.update();
+            this.addQuantity(1);
+            UI.getINSTANCE().logInfo("%s: %d -> %d".formatted(name, prev_quantity, quantity));
+        } else {
+            UI.getINSTANCE().logInfo("Required Omni Tool tier: %d\nCurrent Tier: %d".formatted(requiredTier, Omnitool.tier));
+        }
     }
 }

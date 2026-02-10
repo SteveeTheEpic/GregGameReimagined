@@ -2,14 +2,18 @@ package de.stevee.Logic.Craft;
 
 
 
+import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Items.Tool;
 import de.stevee.ui.UI;
 
 import java.util.ArrayList;
 
+import static de.stevee.Utils.Crafts.crafts;
+
 public class Upgrade extends Craft{
     private final UI ui;
     public Tool Product;
+    public int Tier;
 
     public Upgrade(String id) {
         super(id);
@@ -18,7 +22,6 @@ public class Upgrade extends Craft{
 
     @Override
     public void craft() {
-        Product = (Tool) Products.get(0);
         Ingredients.forEach((item) -> {
             var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
 
@@ -40,8 +43,15 @@ public class Upgrade extends Craft{
             }
         } else {
             // adds an tier
-            Product.addTier(1);
+            Product.setTier(Tier);
+            ui.logInfo("Upgraded %s to Tier %d".formatted(Product.name, Product.tier));
         }
+    }
 
+    @Override
+    public Craft addOutput(Item item, int tier) {
+        Product = (Tool) item;
+        Tier = tier;
+        return this;
     }
 }

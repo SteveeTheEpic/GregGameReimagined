@@ -21,12 +21,13 @@ public class UI {
     private final FarmPanel farmPanel;
     private final CraftPanel craftPanel;
     private final InventoryPanel inventoryPanel;
+    private final MachinePanel machinePanel;
     private final LogPanel logPanel;
 
     private Section activeSection = Section.CRAFT;
 
     public UI(Controller controller) {
-
+        INSTANCE = this;
         this.controller = controller;
         root = new Panel(new BorderLayout());
 
@@ -44,14 +45,13 @@ public class UI {
         farmPanel = new FarmPanel("Farm");
         for (Item item : Items_List) {
             if (item.farmable) {
-                farmPanel.getList().addItem(item.name, () -> {
-                    item.farm();
-                    this.logInfo("%s: %d -> %d".formatted(item.name, item.prev_quantity, item.quantity));
-                });
+                farmPanel.getList().addItem(item.name, item::farm);
             }
         }
 
         inventoryPanel = new InventoryPanel("Inventory");
+
+        machinePanel = new MachinePanel("Machines");
 
         craftPanel = new CraftPanel();
 
@@ -61,7 +61,7 @@ public class UI {
 
         actionPanel.takeFocus();
 
-        INSTANCE = this;
+
     }
 
     public Panel getRoot() {
@@ -81,6 +81,7 @@ public class UI {
             case FARM -> mainArea.addComponent(farmPanel.getRoot(), BorderLayout.Location.CENTER);
             case INVENTORY -> mainArea.addComponent(inventoryPanel.getRoot(), BorderLayout.Location.CENTER);
             case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
+            case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
             case QUIT -> {} // handled in controller
         }
 
@@ -96,6 +97,7 @@ public class UI {
 
     public void refreshAll() {
         inventoryPanel.refresh();
+        machinePanel.refresh();
         craftPanel.refreshInventoryContext(); // optional: can show craftability later
     }
 

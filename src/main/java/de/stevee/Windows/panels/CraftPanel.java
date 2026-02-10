@@ -3,6 +3,7 @@ package de.stevee.Windows.panels;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Craft.Craft;
+import de.stevee.Logic.Items.Item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +31,15 @@ public class CraftPanel {
         root.addComponent(search.withBorder(Borders.singleLine("Search")), BorderLayout.Location.TOP);
         root.addComponent(results.withBorder(Borders.singleLine("Recipes")), BorderLayout.Location.CENTER);
 
+        filtered.putAll(crafts);
         rebuildResults();
     }
 
-
-
     public void refreshInventoryContext() {
         // TODO: annotate entries with craftable/not craftable, etc.
+        rebuildResults();
+
+
     }
 
     public void focusDefault() {
@@ -57,11 +60,15 @@ public class CraftPanel {
     }
 
     private void applyFilter(String q) {
-        var matches = getMatches(crafts, q);
+        // clear previous filter results so items are removed when they no longer match
+        filtered.clear();
+        var matches = getMatches(crafts, q == null ? "" : q);
 
-        crafts.forEach((s, c) -> {
-            if (matches.contains(s)) filtered.put(s, c);
-        });
+        // iterate matches (not all crafts) to repopulate filtered
+        for (String s : matches) {
+            Craft c = crafts.get(s);
+            if (c != null) filtered.put(s, c);
+        }
 
         rebuildResults();
     }
@@ -71,7 +78,11 @@ public class CraftPanel {
         Set<String> r = filtered.keySet();
         
         for (String s : r) {
-            results.addItem(s, filtered.get(s)::craft);
+            Craft craft = filtered.get(s);
+            results.addItem(craft.isCraftable() ? "%s craftable".formatted(s) : "%s not craftable".formatted(s), () -> {
+                craft.craft();
+                refreshInventoryContext();
+            });
         }
     }
 }

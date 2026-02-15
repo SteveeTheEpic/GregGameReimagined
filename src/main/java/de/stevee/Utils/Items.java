@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Items {
-    public static HashMap<String, Item> FarmList = new HashMap<>();
     public static ArrayList<Item> Items_List = new ArrayList<>();
+
+    public static Item None = new Item("Error");
 
     public static Tool Omnitool = new Tool("Omni Tool", 0);
 

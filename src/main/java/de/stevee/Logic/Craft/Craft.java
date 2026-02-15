@@ -2,6 +2,7 @@ package de.stevee.Logic.Craft;
 
 
 
+import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Utils.Crafts;
@@ -21,6 +22,7 @@ public class Craft {
     ArrayList<Item> Products = new ArrayList<>();
     ArrayList<Integer> Products_Count = new ArrayList<>();
 
+    public long requiredEnergy = 0;
     public Machine required = None;
     public boolean machine = true;
     public boolean refund = false;
@@ -34,6 +36,12 @@ public class Craft {
 
     public void craft() {
         machine = required.isAvailable();
+
+        if (requiredEnergy > Energy.getStored() + Energy.getProduction()) {
+            ui.logInfo("Insufficient Energy");
+            return;
+        }
+
 
         Ingredients.forEach((item) -> {
             var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
@@ -62,11 +70,15 @@ public class Craft {
                 n.addQuantity(Products_Count.get(Products.indexOf(n)));
                 ui.logInfo("Made " + n.name);
             });
+            Energy.tick();
+
         }
     }
 
     public boolean craft(boolean simulate) {
         machine = required.isAvailable();
+
+        if (requiredEnergy >= Energy.getStored() + Energy.getProduction()) return false;
 
         Ingredients.forEach((item) -> {
             var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));

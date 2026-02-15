@@ -6,8 +6,10 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
+import de.stevee.Logic.Energy.Energy;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
+import de.stevee.Windows.panels.EnergyPanel;
 
 import java.io.StringReader;
 import java.util.Properties;
@@ -31,6 +33,7 @@ public class Main {
         while (!controller.isEnd()) {
             // SameTextGUIThread lets you run your own loop; see processEventsAndUpdate usage pattern[cite:16]
             boolean didWork = gui.getGUIThread().processEventsAndUpdate();
+            tick();
             if (!didWork) {
                 Thread.sleep(10);
             }
@@ -62,5 +65,9 @@ public class Main {
         Properties p = new Properties();
         p.load(new StringReader(propsText));
         return new PropertyTheme(p, false);
+    }
+
+    private static void tick() {
+        Energy.tick();
     }
 }

@@ -37,7 +37,6 @@ public class Item {
         this.requiredTier = requiresTier;
         this.showing = showing;
         Items.Items_List.add(this);
-        Items.FarmList.put(this.name.toLowerCase(), this);
     }
 
     public void addQuantity(int Quantity) {

@@ -23,6 +23,7 @@ public class UI {
     private final InventoryPanel inventoryPanel;
     private final MachinePanel machinePanel;
     private final LogPanel logPanel;
+    private final EnergyPanel energyPanel;
 
     private Section activeSection = Section.CRAFT;
 
@@ -53,6 +54,8 @@ public class UI {
 
         machinePanel = new MachinePanel("Machines");
 
+        energyPanel = new EnergyPanel();
+
         craftPanel = new CraftPanel();
 
         logPanel = new LogPanel(7);
@@ -81,6 +84,7 @@ public class UI {
             case FARM -> mainArea.addComponent(farmPanel.getRoot(), BorderLayout.Location.CENTER);
             case INVENTORY -> mainArea.addComponent(inventoryPanel.getRoot(), BorderLayout.Location.CENTER);
             case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
+            case ENERGY -> mainArea.addComponent(energyPanel.getRoot(), BorderLayout.Location.CENTER);
             case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
             case QUIT -> {} // handled in controller
         }
@@ -98,6 +102,7 @@ public class UI {
     public void refreshAll() {
         inventoryPanel.refresh();
         machinePanel.refresh();
+        energyPanel.refresh();
         craftPanel.refreshInventoryContext(); // optional: can show craftability later
     }
 
@@ -119,6 +124,8 @@ public class UI {
             case FARM -> farmPanel.focusDefault();
             case INVENTORY -> inventoryPanel.focusDefault();
             case CRAFT -> craftPanel.focusDefault();
+            case ENERGY -> energyPanel.focusDefault();
+            case MACHINES -> machinePanel.focusDefault();
             default -> actionPanel.takeFocus();
         }
     }

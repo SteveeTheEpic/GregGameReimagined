@@ -34,4 +34,8 @@ public class DefaultPanel {
     public ActionListBox getList() {
         return list;
     }
+
+    public void addItem(String label, Runnable action) {
+        list.addItem(label, action);
+    }
 }

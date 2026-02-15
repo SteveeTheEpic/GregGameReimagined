@@ -4,6 +4,7 @@ public enum Section {
     FARM("Farm"),
     CRAFT("Craft"),
     INVENTORY("Inventory"),
+    ENERGY("Energy"),
     MACHINES("Machines"),
     QUIT("Quit");
 

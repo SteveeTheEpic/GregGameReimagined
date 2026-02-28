@@ -6,29 +6,52 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class Scheduler {
-    private final ScheduledExecutorService scheduler;
+    private final ScheduledExecutorService executor;
 
     public Scheduler() {
-        scheduler = Executors.newScheduledThreadPool(0);
+        // Create a scheduled executor with unlimited threads
+        this.executor = Executors.newScheduledThreadPool(0);
     }
 
-    public void executeAfterDelay(Runnable task, long delay, TimeUnit unit) {
-        scheduler.schedule(task, delay, unit);
-    }
-
-    public void executeRepeatingTask(Runnable task, long initialDelay, long period, TimeUnit unit) {
-        scheduler.scheduleAtFixedRate(task, initialDelay, period, unit);
-    }
-
-    public void executeWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
-        scheduler.scheduleWithFixedDelay(task, initialDelay, delay, unit);
-    }
-
+    /**
+     * Execute a task immediately
+     */
     public void execute(Runnable task) {
-        scheduler.execute(task);
+        executor.execute(task);
     }
 
+    /**
+     * Execute a task after a delay
+     */
+    public void executeAfter(Runnable task, long delay, TimeUnit unit) {
+        executor.schedule(task, delay, unit);
+    }
+
+    /**
+     * Execute a task repeatedly at fixed intervals
+     */
+    public void executeAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        executor.scheduleAtFixedRate(task, initialDelay, period, unit);
+    }
+
+    /**
+     * Execute a task repeatedly with fixed delay between executions
+     */
+    public void executeWithFixedDelay(Runnable task, long initialDelay, long delay, TimeUnit unit) {
+        executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);
+    }
+
+    /**
+     * Shutdown the scheduler gracefully
+     */
     public void shutdown() {
-        scheduler.shutdown();
+        executor.shutdown();
+    }
+
+    /**
+     * Check if scheduler is terminated
+     */
+    public boolean isTerminated() {
+        return executor.isTerminated();
     }
 }

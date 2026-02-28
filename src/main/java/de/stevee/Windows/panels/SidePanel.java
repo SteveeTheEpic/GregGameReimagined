@@ -4,9 +4,9 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class ActionPanel extends ActionListBox {
+public class SidePanel extends ActionListBox {
     private final Label header = new Label("Actions");
-    public ActionPanel() {
+    public SidePanel() {
         super();
     }
 

@@ -17,7 +17,7 @@ public class UI {
     private final Panel mainArea;
     private final Panel logHolder;
 
-    private final ActionPanel actionPanel;
+    private final SidePanel sidePanel;
     private final FarmPanel farmPanel;
     private final CraftPanel craftPanel;
     private final InventoryPanel inventoryPanel;
@@ -32,12 +32,12 @@ public class UI {
         this.controller = controller;
         root = new Panel(new BorderLayout());
 
-        actionPanel = new ActionPanel();
-        actionPanel.setPreferredSize(new TerminalSize(18, 1));
+        sidePanel = new SidePanel();
+        sidePanel.setPreferredSize(new TerminalSize(18, 1));
         for (Section section : Section.values()) {
-            actionPanel.addItem(section.title(), () -> controller.runSelected(section));
+            sidePanel.addItem(section.title(), () -> controller.runSelected(section));
         }
-        root.addComponent(actionPanel.withBorder(Borders.singleLine()), BorderLayout.Location.LEFT);
+        root.addComponent(sidePanel.withBorder(Borders.singleLine()), BorderLayout.Location.LEFT);
 
 
         this.mainArea = new Panel(new BorderLayout());
@@ -62,7 +62,7 @@ public class UI {
         logHolder = new Panel(new BorderLayout());
         logHolder.addComponent(logPanel.withBorder(Borders.singleLine("Log")), BorderLayout.Location.CENTER);
 
-        actionPanel.takeFocus();
+        sidePanel.takeFocus();
 
 
     }
@@ -115,7 +115,7 @@ public class UI {
     }
 
     public void focusSidebar() {
-        actionPanel.takeFocus();
+        sidePanel.takeFocus();
     }
 
     public void focusMain() {
@@ -125,7 +125,7 @@ public class UI {
             case CRAFT -> craftPanel.focusDefault();
             case ENERGY -> energyPanel.focusDefault();
             case MACHINES -> machinePanel.focusDefault();
-            default -> actionPanel.takeFocus();
+            default -> sidePanel.takeFocus();
         }
     }
 

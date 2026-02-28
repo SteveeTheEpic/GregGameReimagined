@@ -1,13 +1,12 @@
 package de.stevee.Logic.Material;
 
-import de.stevee.Logic.Items.Item;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Material {
     private final String id;
+    private int requiredTier;
     private Set<FLAGS> flags = new HashSet<>();
 
     public Material(String id) {
@@ -16,6 +15,15 @@ public class Material {
 
     public Material addFlag(FLAGS flags) {
         return addFlags(flags);
+    }
+
+    public Material setRequiredTier(int requiredTier) {
+        this.requiredTier = requiredTier;
+        return this;
+    }
+
+    public int getRequiredTier() {
+        return requiredTier;
     }
 
     public Material addFlags(FLAGS... flags) {
@@ -43,6 +51,7 @@ public class Material {
         SHEET("Sheet"),
         WIRE("Wire"),
         FINE_WIRE("Fine Wire"),
+        FOIL("Foil"),
         DUST("Dust");
 
         private final String displayName;

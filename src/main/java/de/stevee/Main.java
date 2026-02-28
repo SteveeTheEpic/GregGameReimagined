@@ -31,9 +31,9 @@ public class Main {
         gui.addWindow(new GameWindow(controller));
 
         while (!controller.isEnd()) {
-            // SameTextGUIThread lets you run your own loop; see processEventsAndUpdate usage pattern[cite:16]
             boolean didWork = gui.getGUIThread().processEventsAndUpdate();
             tick();
+
             if (!didWork) {
                 Thread.sleep(10);
             }
@@ -43,8 +43,6 @@ public class Main {
     }
 
     private static Theme createTheme() throws Exception {
-        // Lanterna's DefaultTheme is property-based; keys like foreground[SELECTED]/background[SELECTED] are used[cite:4]
-        // TextColor parsing supports ANSI names like DEFAULT via TextColor.ANSI.valueOf(...) in fromString()[cite:78]
         String propsText = ""
                 + "foreground = default\n"
                 + "background = default\n"

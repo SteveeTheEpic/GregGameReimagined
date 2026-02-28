@@ -20,25 +20,32 @@ public class LogPanel extends TextBox {
         setHorizontalFocusSwitching(false);
     }
 
-    public void append(String msg) {
-        lines.add(msg);
-        // Auto-follow bottom unless user has scrolled up
+    public void append(String log) {
+        lines.add(log);
         if (scroll == 0) {
             refreshText();
         } else {
+            scroll(1);
             refreshText();
         }
     }
 
-    public void scroll(int deltaLines) {
-        int maxScroll = Math.max(0, lines.size() - height);
-        scroll = clamp(scroll + deltaLines, 0, maxScroll);
+    /**
+     * Scroll {@code lines} up <p>
+     * if {@code lines} is positive it scrolls up, if its negative it scrolls down
+     * </p>
+
+     * @param lines
+     */
+    public void scroll(int lines) {
+        int maxScroll = Math.max(0, this.lines.size() - height);
+        scroll = Math.clamp(scroll + lines, 0, maxScroll);
         refreshText();
     }
 
     private void refreshText() {
         int maxScroll = Math.max(0, lines.size() - height);
-        scroll = clamp(scroll, 0, maxScroll);
+        scroll = Math.clamp(scroll, 0, maxScroll);
 
         int start = Math.max(0, lines.size() - height - scroll);
         int end = Math.min(lines.size(), start + height);
@@ -49,9 +56,5 @@ public class LogPanel extends TextBox {
             if (i + 1 < end) sb.append('\n');
         }
         setText(sb.toString());
-    }
-
-    private static int clamp(int v, int lo, int hi) {
-        return Math.max(lo, Math.min(hi, v));
     }
 }

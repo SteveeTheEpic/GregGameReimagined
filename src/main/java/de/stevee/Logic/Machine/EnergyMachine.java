@@ -1,10 +1,10 @@
 package de.stevee.Logic.Machine;
 
 public class EnergyMachine extends Machine {
-    private final long usage;
+    private final long maxUsage;
 
-    public EnergyMachine(String name, long usage) {
+    public EnergyMachine(String name, long maxUsage) {
         super(name);
-        this.usage = usage;
+        this.maxUsage = maxUsage;
     }
 }

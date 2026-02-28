@@ -15,6 +15,9 @@ public class MaterialRegistry {
             throw new IllegalArgumentException("Duplicate material: " + m.id());
         materials.put(m.id(), m);
         for (Material.FLAGS flag : m.flags()) {
+            if (m.getRequiredTier() > 0) {
+                Items.Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())).setRequiredTier(m.getRequiredTier()));
+            }
             Items.Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())));
         }
         return m;

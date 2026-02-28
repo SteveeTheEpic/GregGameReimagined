@@ -58,7 +58,7 @@ public class UI {
 
         craftPanel = new CraftPanel();
 
-        logPanel = new LogPanel(7);
+        logPanel = new LogPanel(4);
         logHolder = new Panel(new BorderLayout());
         logHolder.addComponent(logPanel.withBorder(Borders.singleLine("Log")), BorderLayout.Location.CENTER);
 
@@ -86,10 +86,9 @@ public class UI {
             case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
             case ENERGY -> mainArea.addComponent(energyPanel.getRoot(), BorderLayout.Location.CENTER);
             case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
-            case QUIT -> {} // handled in controller
+            case QUIT -> {}
         }
 
-        // Show/hide log (hidden on Inventory)
         root.removeComponent(logHolder);
         if (section != Section.INVENTORY) {
             root.addComponent(logHolder, BorderLayout.Location.BOTTOM);
@@ -103,7 +102,7 @@ public class UI {
         inventoryPanel.refresh();
         machinePanel.refresh();
         energyPanel.refresh();
-        craftPanel.refreshInventoryContext(); // optional: can show craftability later
+        craftPanel.refreshInventoryContext();
     }
 
 
@@ -111,8 +110,8 @@ public class UI {
         logPanel.append(msg);
     }
 
-    public void scrollLog(int deltaLines) {
-        logPanel.scroll(deltaLines);
+    public void scrollLog(int lines) {
+        logPanel.scroll(lines);
     }
 
     public void focusSidebar() {

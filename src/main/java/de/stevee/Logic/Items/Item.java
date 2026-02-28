@@ -47,12 +47,14 @@ public class Item {
         quantity -= Quantity;
     }
 
-    public void setRequiredTier(int count) {
+    public Item setRequiredTier(int count) {
         this.requiredTier = count;
+        return  this;
     }
 
-    public void setShowing(boolean showing) {
+    public Item setShowing(boolean showing) {
         this.showing = showing;
+        return this;
     }
 
     public void update() {
@@ -66,7 +68,7 @@ public class Item {
             this.addQuantity(1);
             UI.getINSTANCE().logInfo("%s: %d -> %d".formatted(name, prev_quantity, quantity));
         } else {
-            UI.getINSTANCE().logInfo("Required Omni Tool tier: %d\nCurrent Tier: %d".formatted(requiredTier, Omnitool.tier));
+            UI.getINSTANCE().logInfo("Required Omni Tool tier: %d".formatted(requiredTier));
         }
     }
 }

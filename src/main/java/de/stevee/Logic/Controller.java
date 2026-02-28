@@ -41,7 +41,6 @@ public class Controller {
     public boolean handleGlobalKey(KeyStroke k) {
         if (k == null) return false;
 
-        // Log scroll should not steal focus or change selections
         if (k.getKeyType() == KeyType.PageUp) {
             ui.scrollLog(+3);
             return true;
@@ -51,7 +50,6 @@ public class Controller {
             return true;
         }
 
-        // Focus switching: prefer A/D universally.
         if (k.getKeyType() == KeyType.Character) {
             if (!(ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused())) {
                 char c = Character.toLowerCase(k.getCharacter());
@@ -66,7 +64,6 @@ public class Controller {
             }
         }
 
-        // Escape: context-dependent cancel.
         if (k.getKeyType() == KeyType.Escape) {
             if (ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused()) {
                 ui.focusCraftResults();
@@ -83,19 +80,14 @@ public class Controller {
             }
         }
 
-        // Backspace: treat as cancel only when NOT typing into Craft search.
         if (k.getKeyType() == KeyType.Backspace) {
             if (ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused()) {
-                return false; // let TextBox delete characters
+                return false;
             }
             ui.focusSidebar();
             return true;
         }
 
         return false;
-    }
-
-    public void onFarmSelected(String id) {
-        ui.logInfo("Farmed: " + id);
     }
 }

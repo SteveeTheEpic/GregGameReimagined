@@ -6,10 +6,11 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Utils.Crafts;
+import de.stevee.Utils.Items;
 import de.stevee.ui.UI;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.HashMap;
 
 import static de.stevee.Logic.Machine.Machines.None;
 
@@ -17,10 +18,8 @@ import static de.stevee.Logic.Machine.Machines.None;
 public class Craft {
     private final UI ui;
 
-    ArrayList<Item> Ingredients = new ArrayList<>();
-    ArrayList<Integer> Ingredients_Count = new ArrayList<>();
-    ArrayList<Item> Products = new ArrayList<>();
-    ArrayList<Integer> Products_Count = new ArrayList<>();
+    HashMap<Item, Integer> Ingredients = new HashMap<>();
+    HashMap<Item, Integer> Products = new HashMap<>();
 
     public long requiredEnergy = 0;
     public long duration = 0;
@@ -34,7 +33,6 @@ public class Craft {
         ui = UI.getINSTANCE();
     }
 
-
     public void craft() {
         if (!required.isAvailable()) {
             UI.getINSTANCE().logInfo(required.getName() + " is required!");
@@ -46,45 +44,30 @@ public class Craft {
             return;
         }
 
-        Ingredients.forEach((item) -> {
-            var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
+        Item insufficientItem = hasEnoughIngredients();
+        if (insufficientItem != Items.None) {
+            ui.logInfo("Insufficient " + insufficientItem.name);
+            return;
+        }
 
-            // Checks if the Items.Item is Craftable or the Machine is available
-            if ((item.quantity - Ing_c) >= 0) {
-                item.subQuantity(Ing_c);
-            } else if ((item.quantity - Ing_c) < 0){
-                ui.logInfo("Insufficient " + item.name);
-                item.subQuantity(Ing_c);
-                refund = true;
-            }
+        useIngredients();
+        Energy.subStored(requiredEnergy);
+
+        Products.forEach((item, quantity) -> {
+            item.addQuantity(quantity);
+            ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prev_quantity, item.quantity));
         });
 
-        if (refund) {
-            // refunds every item used in the recipe if the craft is refunded
-            for (int i = 0; i < Ingredients.size(); i++) {
-                Ingredients.get(i).addQuantity(Ingredients_Count.get(i));
-            }
-
-        } else {
-            // adds the product
-            Products.forEach((n) -> {
-                n.addQuantity(Products_Count.get(Products.indexOf(n)));
-                ui.logInfo("Made " + n.name);
-            });
-            Energy.tick();
-
-        }
+        Energy.tick();
     }
 
     public Craft addItem(Item item, int quantity) {
-        Ingredients.add(item);
-        Ingredients_Count.add(quantity);
+        Ingredients.put(item, quantity);
         return this;
     }
 
     public Craft addOutput(Item item, int quantity) {
-        Products.add(item);
-        Products_Count.add(quantity);
+        Products.put(item, quantity);
         return this;
     }
 
@@ -93,24 +76,29 @@ public class Craft {
         return this;
     }
 
-    public boolean isCraftable() {
-        AtomicBoolean refund = new AtomicBoolean(false);
-        Ingredients.forEach((item) -> {
-            var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
-
-            // Checks if the Items.Item is Craftable or the Machine is available
-            if ((item.quantity - Ing_c) >= 0 && machine) {
-                refund.set(true);
-            } else if ((item.quantity - Ing_c) < 0){
-                refund.set(false);
-            } else if (!machine) {
-                refund.set(false);
+    public Item hasEnoughIngredients() {
+        for (Item item : Ingredients.keySet()) {
+            if (!((item.quantity - Ingredients.get(item)) >= 0 && machine)) {
+                return item;
             }
-        });
-        return refund.get();
+        }
+
+        return Items.None;
     }
 
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    void refundAll() {
+        for (Item item : Ingredients.keySet()) {
+            item.addQuantity(Ingredients.get(item));
+        }
+    }
+
+    void useIngredients() {
+        for (Item item : Ingredients.keySet()) {
+            item.subQuantity(Ingredients.get(item));
+        }
     }
 }

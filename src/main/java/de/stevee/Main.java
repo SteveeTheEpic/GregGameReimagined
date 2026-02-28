@@ -10,9 +10,7 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.panels.EnergyPanel;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    private static final Scheduler scheduler = new Scheduler();
+    public static final Scheduler scheduler = new Scheduler();
 
     public static void main(String[] args) throws Exception {
         DefaultTerminalFactory tf = new DefaultTerminalFactory();

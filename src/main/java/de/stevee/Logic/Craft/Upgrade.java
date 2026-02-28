@@ -22,13 +22,11 @@ public class Upgrade extends Craft{
 
     @Override
     public void craft() {
-        Ingredients.forEach((item) -> {
-            var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
-
+        Ingredients.forEach((item, quantity) -> {
             // Checks if the Tool is Upgradeable and the Machine is available
-            if ((item.quantity - Ing_c) >= 0 && machine) {
-                item.subQuantity(Ing_c);
-            } else if ((item.quantity - Ing_c) < 0){
+            if ((item.quantity - quantity) >= 0 && machine) {
+                item.subQuantity(quantity);
+            } else if ((item.quantity - quantity) < 0){
                 ui.logInfo("Insufficient " + item.name);
                 refund = true;
             } else if (!machine) {
@@ -38,9 +36,7 @@ public class Upgrade extends Craft{
 
         if (refund || !machine) {
             // refunds every item used in the recipe if the upgrade is refunded
-            for (int i = 0; i < Ingredients.size(); i++) {
-                Ingredients.get(i).addQuantity(Ingredients_Count.get(i));
-            }
+            refundAll();
         } else {
             // adds an tier
             Product.setTier(Tier);

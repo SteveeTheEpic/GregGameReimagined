@@ -24,6 +24,7 @@ public class UI {
     private final MachinePanel machinePanel;
     private final LogPanel logPanel;
     private final EnergyPanel energyPanel;
+    private final ProcessPanel processPanel;
 
     private Section activeSection = Section.CRAFT;
 
@@ -54,6 +55,9 @@ public class UI {
 
         machinePanel = new MachinePanel("Machines");
 
+        processPanel = new ProcessPanel("Processes");
+        processPanel.addItem("test", 10);
+
         energyPanel = new EnergyPanel();
 
         craftPanel = new CraftPanel();
@@ -63,8 +67,6 @@ public class UI {
         logHolder.addComponent(logPanel.withBorder(Borders.singleLine("Log")), BorderLayout.Location.CENTER);
 
         sidePanel.takeFocus();
-
-
     }
 
     public Panel getRoot() {
@@ -86,6 +88,7 @@ public class UI {
             case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
             case ENERGY -> mainArea.addComponent(energyPanel.getRoot(), BorderLayout.Location.CENTER);
             case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
+            case PROCESS -> mainArea.addComponent(processPanel.getRoot(), BorderLayout.Location.CENTER);
             case QUIT -> {}
         }
 
@@ -122,7 +125,8 @@ public class UI {
         switch (activeSection) {
             case FARM -> farmPanel.focusDefault();
             case INVENTORY -> inventoryPanel.focusDefault();
-            case CRAFT -> craftPanel.focusDefault();
+            case PROCESS -> processPanel.focusDefault();
+            case CRAFT -> craftPanel.focusSearch();
             case ENERGY -> energyPanel.focusDefault();
             case MACHINES -> machinePanel.focusDefault();
             default -> sidePanel.takeFocus();
@@ -141,7 +145,7 @@ public class UI {
         if (craftPanel.isSearchFocused()) {
             craftPanel.focusResults();
         } else {
-            craftPanel.focusDefault();
+            craftPanel.focusSearch();
         }
     }
 

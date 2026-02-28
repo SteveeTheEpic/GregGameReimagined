@@ -3,12 +3,10 @@ package de.stevee.Windows.panels;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Craft.Craft;
-import de.stevee.Logic.Items.Item;
+import de.stevee.Utils.Items;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import static de.stevee.Utils.Crafts.crafts;
 import static de.stevee.Utils.Inventory.getMatches;
@@ -36,13 +34,10 @@ public class CraftPanel {
     }
 
     public void refreshInventoryContext() {
-        // TODO: annotate entries with craftable/not craftable, etc.
         rebuildResults();
-
-
     }
 
-    public void focusDefault() {
+    public void focusSearch() {
         // Default: focus search (matches “search field at top” UX)
         search.takeFocus(); // Interactable.takeFocus exists for focus control[cite:50]
     }
@@ -79,8 +74,9 @@ public class CraftPanel {
         
         for (String s : r) {
             Craft craft = filtered.get(s);
-            results.addItem(craft.isCraftable() ? "%s craftable".formatted(s) : "%s not craftable".formatted(s), () -> {
+            results.addItem(craft.hasEnoughIngredients() == Items.None ? "%s craftable".formatted(s) : "%s not craftable".formatted(s), () -> {
                 craft.craft();
+                Items.update();
                 refreshInventoryContext();
             });
         }

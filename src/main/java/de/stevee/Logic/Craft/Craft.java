@@ -23,6 +23,7 @@ public class Craft {
     ArrayList<Integer> Products_Count = new ArrayList<>();
 
     public long requiredEnergy = 0;
+    public long duration = 0;
     public Machine required = None;
     public boolean machine = true;
     public boolean refund = false;
@@ -35,30 +36,30 @@ public class Craft {
 
 
     public void craft() {
-        machine = required.isAvailable();
+        if (!required.isAvailable()) {
+            UI.getINSTANCE().logInfo(required.getName() + " is required!");
+            return;
+        }
 
         if (requiredEnergy > Energy.getStored() + Energy.getProduction()) {
             ui.logInfo("Insufficient Energy");
             return;
         }
 
-
         Ingredients.forEach((item) -> {
             var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
 
             // Checks if the Items.Item is Craftable or the Machine is available
-            if ((item.quantity - Ing_c) >= 0 && machine) {
+            if ((item.quantity - Ing_c) >= 0) {
                 item.subQuantity(Ing_c);
             } else if ((item.quantity - Ing_c) < 0){
                 ui.logInfo("Insufficient " + item.name);
                 item.subQuantity(Ing_c);
                 refund = true;
-            } else if (!machine) {
-                ui.logInfo(required.getName() + " is required!");
             }
         });
 
-        if (refund || !machine) {
+        if (refund) {
             // refunds every item used in the recipe if the craft is refunded
             for (int i = 0; i < Ingredients.size(); i++) {
                 Ingredients.get(i).addQuantity(Ingredients_Count.get(i));
@@ -72,42 +73,6 @@ public class Craft {
             });
             Energy.tick();
 
-        }
-    }
-
-    public boolean craft(boolean simulate) {
-        machine = required.isAvailable();
-
-        if (requiredEnergy >= Energy.getStored() + Energy.getProduction()) return false;
-
-        Ingredients.forEach((item) -> {
-            var Ing_c = Ingredients_Count.get(Ingredients.indexOf(item));
-
-            // Checks if the Items.Item is Craftable or the Machine is available
-            if ((item.quantity - Ing_c) >= 0 && machine) {
-                item.subQuantity(Ing_c);
-            } else if ((item.quantity - Ing_c) < 0){
-                ui.logInfo("Insufficient " + item.name);
-                item.subQuantity(Ing_c);
-                refund = true;
-            } else if (!machine) {
-                ui.logInfo(required.getName() + " is required!");
-            }
-        });
-
-        if (refund || !machine) {
-            // refunds every item used in the recipe if the craft is refunded
-            for (int i = 0; i < Ingredients.size(); i++) {
-                Ingredients.get(i).addQuantity(Ingredients_Count.get(i));
-            }
-
-            return false;
-        } else {
-            // adds the product
-            Products.forEach((n) -> {
-                n.addQuantity(Products_Count.get(Products.indexOf(n)));
-            });
-            return true;
         }
     }
 
@@ -135,13 +100,17 @@ public class Craft {
 
             // Checks if the Items.Item is Craftable or the Machine is available
             if ((item.quantity - Ing_c) >= 0 && machine) {
-                refund.set(false);
+                refund.set(true);
             } else if ((item.quantity - Ing_c) < 0){
-                refund.set(true);
+                refund.set(false);
             } else if (!machine) {
-                refund.set(true);
+                refund.set(false);
             }
         });
-        return !refund.get();
+        return refund.get();
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }

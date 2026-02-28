@@ -10,10 +10,9 @@ import static de.stevee.Utils.Items.Items_List;
 public class MaterialUtil {
 
     /**
-     * Return Item if exists else null
      * @param flag
      * @param material
-     * @return {@code  Item} if exists else {@code Items.None}
+     * @return {@code  Items} if exists else {@code Items.None}
      */
     public static Item getMaterial(Material.FLAGS flag, Material material) {
         for (Item item : Items_List) {

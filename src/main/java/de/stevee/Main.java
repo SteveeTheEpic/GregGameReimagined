@@ -10,6 +10,7 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
+import de.stevee.ui.Component.ProgressList;
 
 import java.io.StringReader;
 import java.util.Properties;
@@ -52,6 +53,13 @@ public class Main {
         // Energy tick - runs every 50ms (20 TPS)
         scheduler.executeWithFixedDelay(
                 Energy::tick,
+                0,
+                50,
+                TimeUnit.MILLISECONDS
+        );
+
+        scheduler.executeWithFixedDelay(
+                ProgressList::update,
                 0,
                 50,
                 TimeUnit.MILLISECONDS

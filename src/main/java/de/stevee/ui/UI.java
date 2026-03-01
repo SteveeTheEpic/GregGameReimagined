@@ -56,7 +56,7 @@ public class UI {
         machinePanel = new MachinePanel("Machines");
 
         processPanel = new ProcessPanel("Processes");
-        processPanel.addItem("test", 10);
+        processPanel.addItem("test", 1000);
 
         energyPanel = new EnergyPanel();
 

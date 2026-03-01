@@ -14,6 +14,7 @@ public class ProgressLabel {
         bar = new ProgressBar(0, maxTicks);
         bar.setPreferredWidth(20); // length of bar, tweak
 
+
         root.addComponent(nameLabel, BorderLayout.Location.LEFT);
         root.addComponent(bar, BorderLayout.Location.CENTER);
     }
@@ -24,5 +25,9 @@ public class ProgressLabel {
 
     void setProgress(int ticks) {
         bar.setValue(ticks);
+    }
+
+    void addProgress(int ticks) {
+        bar.setValue(bar.getValue() + ticks);
     }
 }

@@ -7,7 +7,7 @@ import com.googlecode.lanterna.gui2.Panel;
 
 public class ProgressList {
     private final Panel root;
-    private final java.util.List<ProgressLabel> rows = new java.util.ArrayList<>();
+    private static final java.util.List<ProgressLabel> list = new java.util.ArrayList<>();
 
     public ProgressList() {
         root = new Panel(new LinearLayout(Direction.VERTICAL));
@@ -19,13 +19,19 @@ public class ProgressList {
 
     public ProgressLabel addLabel(String name, int maxTicks) {
         ProgressLabel progressLabel = new ProgressLabel(name, maxTicks);
-        rows.add(progressLabel);
+        list.add(progressLabel);
         root.addComponent(progressLabel.getComponent());
         return progressLabel;
     }
 
     public void removeLabel(ProgressLabel label) {
-        rows.remove(label);
+        list.remove(label);
         root.removeComponent(label.getComponent());
+    }
+
+    public static void update() {
+        for (ProgressLabel label : list) {
+            label.addProgress(1);
+        }
     }
 }

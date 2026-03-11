@@ -8,17 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static de.stevee.Utils.Inventory.getMatchesInList;
+import static de.stevee.Utils.Inventory.getMatches;
 
 public class SearchPanel<T> {
     private final Panel root;
     private final TextBox search;
     private final ActionListBox results;
+    private int prev_idx = 0;
 
-    private HashMap<Label, T> all = new HashMap<>();
-    private ArrayList<Label> filtered = new ArrayList<>();
+    private HashMap<String, T> all = new HashMap<>();
+    private ArrayList<String> filtered = new ArrayList<>();
 
-    public SearchPanel(String title, Map<Label, T> labels) {
+    public SearchPanel(String title, Map<String, T> labels) {
         root = new Panel(new BorderLayout());
 
         search = new TextBox(new TerminalSize(30, 1));
@@ -35,15 +36,15 @@ public class SearchPanel<T> {
         recalculateResult();
     }
 
-    public void refreshInventoryContext() {
-        recalculateResult();
-    }
-
     public void focusSearch() {
         search.takeFocus();
     }
 
     public void focusResults() {
+        results.takeFocus();
+    }
+
+    public void focusDefault(){
         results.takeFocus();
     }
 
@@ -55,13 +56,11 @@ public class SearchPanel<T> {
         return root;
     }
 
-    private void applyFilter(String q) {
+    private void applyFilter(String string) {
         filtered.clear();
-        var matches = getMatchesInList(all.keySet().stream().toList(), q == null || q.isBlank() ? "" : q);
+        var matches = getMatches(all, string == null || string.isBlank() ? "" : string);
 
-        for (String s : matches) {
-            filtered.add(new Label(s));
-        }
+        filtered.addAll(matches);
 
         recalculateResult();
     }
@@ -70,16 +69,20 @@ public class SearchPanel<T> {
         return results;
     }
 
-    private void recalculateResult() {
+    public void recalculateResult() {
         results.clearItems();
-        List<Label> r = filtered.stream().toList();
+        List<String> r = filtered.stream().toList();
 
-        for (Label l : r) {
-            addResult(l.getText());
+        for (String l : r) {
+            addResult(l);
         }
     }
 
     public void addResult(String label) {
         results.addItem(label, () -> {});
+    }
+
+    public T getActive() {
+        return all.get(filtered.get(results.getSelectedIndex()));
     }
 }

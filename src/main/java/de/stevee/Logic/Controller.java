@@ -51,7 +51,7 @@ public class Controller {
         }
 
         if (k.getKeyType() == KeyType.Character) {
-            if (!(ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused())) {
+            if (!(ui.isSearchGui() && ui.isSearchFocused())) {
                 char c = Character.toLowerCase(k.getCharacter());
                 if (c == 'a') {
                     ui.focusSidebar();
@@ -65,8 +65,8 @@ public class Controller {
         }
 
         if (k.getKeyType() == KeyType.Escape) {
-            if (ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused()) {
-                ui.focusCraftResults();
+            if (ui.isSearchGui() && ui.isSearchFocused()) {
+                ui.focusResults();
                 return true;
             }
             ui.focusSidebar();
@@ -74,14 +74,14 @@ public class Controller {
         }
 
         if (k.getKeyType() == KeyType.Tab) {
-            if (ui.getActiveSection() == Section.CRAFT) {
-                ui.toggleCraftFocus();
+            if (ui.isSearchGui()) {
+                ui.toggleSearchFocus();
                 return true;
             }
         }
 
         if (k.getKeyType() == KeyType.Backspace) {
-            if (ui.getActiveSection() == Section.CRAFT && ui.isCraftSearchFocused()) {
+            if (ui.isSearchGui() && ui.isSearchFocused()) {
                 return false;
             }
             ui.focusSidebar();

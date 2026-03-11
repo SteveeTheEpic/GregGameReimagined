@@ -3,9 +3,13 @@ package de.stevee.ui;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Items.Item;
+import de.stevee.Main;
 import de.stevee.Windows.Section;
 import de.stevee.Windows.panels.*;
 import de.stevee.Logic.Controller;
+import de.stevee.Windows.panels.basic.SearchPanel;
+
+import java.util.concurrent.TimeUnit;
 
 import static de.stevee.Utils.Items.Items_List;
 
@@ -20,6 +24,7 @@ public class UI {
     private final SidePanel sidePanel;
     private final FarmPanel farmPanel;
     private final CraftPanel craftPanel;
+    private final InfoPanel infoPanel;
     private final InventoryPanel inventoryPanel;
     private final MachinePanel machinePanel;
     private final LogPanel logPanel;
@@ -51,7 +56,7 @@ public class UI {
             }
         }
 
-        inventoryPanel = new InventoryPanel("Inventory");
+        inventoryPanel = new InventoryPanel();
 
         machinePanel = new MachinePanel("Machines");
 
@@ -61,6 +66,7 @@ public class UI {
         energyPanel = new EnergyPanel();
 
         craftPanel = new CraftPanel();
+        infoPanel = new InfoPanel();
 
         logPanel = new LogPanel(4);
         logHolder = new Panel(new BorderLayout());
@@ -85,7 +91,10 @@ public class UI {
         switch (section) {
             case FARM -> mainArea.addComponent(farmPanel.getRoot(), BorderLayout.Location.CENTER);
             case INVENTORY -> mainArea.addComponent(inventoryPanel.getRoot(), BorderLayout.Location.CENTER);
-            case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
+            case CRAFT -> {
+                mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
+
+            }
             case ENERGY -> mainArea.addComponent(energyPanel.getRoot(), BorderLayout.Location.CENTER);
             case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
             case PROCESS -> mainArea.addComponent(processPanel.getRoot(), BorderLayout.Location.CENTER);
@@ -105,7 +114,7 @@ public class UI {
         inventoryPanel.refresh();
         machinePanel.refresh();
         energyPanel.refresh();
-        craftPanel.refreshInventoryContext();
+        craftPanel.recalculateResult();
     }
 
 
@@ -126,30 +135,52 @@ public class UI {
             case FARM -> farmPanel.focusDefault();
             case INVENTORY -> inventoryPanel.focusDefault();
             case PROCESS -> processPanel.focusDefault();
-            case CRAFT -> craftPanel.focusSearch();
+            case CRAFT -> craftPanel.focusDefault();
             case ENERGY -> energyPanel.focusDefault();
             case MACHINES -> machinePanel.focusDefault();
             default -> sidePanel.takeFocus();
         }
     }
 
-    public boolean isCraftSearchFocused() {
-        return craftPanel.isSearchFocused();
+    public SearchPanel<?> getSearchPanel() {
+        switch (activeSection) {
+            case INVENTORY -> {
+                return inventoryPanel;
+            }
+            case CRAFT -> {
+                return craftPanel;
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
-    public void focusCraftResults() {
-        craftPanel.focusResults();
+    public boolean isSearchFocused() {
+        return craftPanel.isSearchFocused() || inventoryPanel.isSearchFocused();
     }
 
-    public void toggleCraftFocus() {
-        if (craftPanel.isSearchFocused()) {
-            craftPanel.focusResults();
-        } else {
-            craftPanel.focusSearch();
+    public void focusResults() {
+        getSearchPanel().focusResults();
+    }
+
+    public boolean isSearchGui() {
+        return activeSection == Section.CRAFT || activeSection == Section.INVENTORY;
+    }
+
+    public void toggleSearchFocus() {
+        if (isSearchGui()) {
+            if (craftPanel.isSearchFocused()) {
+                craftPanel.focusResults();
+            } else {
+                craftPanel.focusSearch();
+            }
         }
     }
 
     public static UI getINSTANCE() {
         return INSTANCE;
     }
+
+
 }

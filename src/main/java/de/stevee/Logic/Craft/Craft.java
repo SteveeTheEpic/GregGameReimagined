@@ -42,13 +42,13 @@ public class Craft {
     }
 
     public void craft() {
+        if (Ingredients.isEmpty() && Products.isEmpty()) {
+            inform(errorMsg);
+        }
+
         if (!required.isAvailable()) {
             UI.getINSTANCE().logInfo(required.getName() + " is required!");
             return;
-        }
-
-        if (Ingredients.isEmpty() && Products.isEmpty()) {
-            inform(errorMsg);
         }
 
         if (requiredEnergy > Energy.getStored() + Energy.getProduction()) {
@@ -130,5 +130,17 @@ public class Craft {
     public Craft inform(String text) {
         errorMsg = text;
         return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public HashMap<Item, Integer> getIngredients() {
+        return Ingredients;
+    }
+
+    public HashMap<Item, Integer> getProducts() {
+        return Products;
     }
 }

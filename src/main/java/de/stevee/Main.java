@@ -10,6 +10,8 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
+import de.stevee.Windows.panels.CraftPanel;
+import de.stevee.Windows.panels.InfoPanel;
 import de.stevee.ui.Component.ProgressList;
 
 import java.io.StringReader;
@@ -20,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static final Scheduler scheduler = new Scheduler();
+    public static WindowBasedTextGUI gui;
 
     public static void main(String[] args) throws Exception {
         DefaultTerminalFactory tf = new DefaultTerminalFactory();
@@ -28,7 +31,7 @@ public class Main {
         Screen screen = tf.createScreen();
         screen.startScreen();
 
-        WindowBasedTextGUI gui = new MultiWindowTextGUI(new SameTextGUIThread.Factory(), screen);
+        gui = new MultiWindowTextGUI(new SameTextGUIThread.Factory(), screen);
         gui.setTheme(createTheme());
         Controller controller = new Controller();
 

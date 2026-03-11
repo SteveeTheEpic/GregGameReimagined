@@ -2,13 +2,15 @@ package de.stevee.Windows.panels;
 
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Energy.Energy;
+import de.stevee.Windows.panels.basic.DefaultPanel;
 
-public class EnergyPanel{
+public class EnergyPanel extends DefaultPanel {
     private final Panel root;
-    private static Label energyHeader;
+    private static Label energyHeader = new Label("");
     private final ActionListBox list;
 
     public EnergyPanel() {
+        super(energyHeader.getText());
         root = new Panel(new BorderLayout());
         energyHeader = new Label("Energy: %s".formatted(Energy.getStored()));
         energyHeader.setLayoutData(BorderLayout.Location.TOP);

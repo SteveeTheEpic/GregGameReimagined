@@ -3,7 +3,6 @@ package de.stevee.Utils;
 
 
 import com.googlecode.lanterna.gui2.Label;
-import de.stevee.Logic.Items.Tool;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,24 +11,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static de.stevee.Utils.Items.Items_List;
-
 
 public class Inventory {
-
-    public static void init() {
-        Items_List.forEach((item) -> {
-            if (item.showing && (item instanceof Tool tool)) {
-                System.out.printf("%s's Tier: %d\n", tool.name, tool.tier);
-            } else {
-                if (item.showing) {
-                    System.out.println(item.name + ": " + item.quantity);
-                }
-            }
-        });
-    }
-
-
     public static ArrayList<String> getMatches(HashMap<String, ?> list, String match) {
         if (match == null) match = "";
 
@@ -55,7 +38,8 @@ public class Inventory {
 
         return possible;
     }
-    public static ArrayList<String> getMatchesInList(List<Label> list, String match) {
+
+    public static ArrayList<String> getMatches(List<Label> list, String match) {
         if (match == null) match = "";
 
         StringBuilder regex = new StringBuilder();

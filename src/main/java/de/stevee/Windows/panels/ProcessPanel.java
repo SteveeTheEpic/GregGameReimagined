@@ -1,17 +1,12 @@
 package de.stevee.Windows.panels;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Scheduler.Scheduler;
-import de.stevee.Main;
 import de.stevee.ui.Component.ProgressList;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ProcessPanel {
     private final Panel root;
     private final Label header;
-    private final ProgressList list;
+    private static ProgressList list = null;
 
     public ProcessPanel(String title) {
         root = new Panel(new BorderLayout());
@@ -36,7 +31,7 @@ public class ProcessPanel {
         return list;
     }
 
-    public void addItem(String label, int time) {
+    public static void addProcess(String label, long time) {
         list.addLabel(label, time);
     }
 }

@@ -2,6 +2,7 @@ package de.stevee.Windows.panels;
 
 import de.stevee.Logic.Items.Tool;
 import de.stevee.Logic.Machine.Machine;
+import de.stevee.Windows.panels.basic.DefaultPanel;
 import de.stevee.ui.UI;
 
 import static de.stevee.Utils.Items.Items_List;

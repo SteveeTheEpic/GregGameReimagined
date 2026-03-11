@@ -1,11 +1,11 @@
 package de.stevee.Windows.panels;
 
-import de.stevee.Logic.Items.Tool;
 import de.stevee.Logic.Machine.Machine;
+import de.stevee.Windows.panels.basic.DefaultPanel;
 
 import static de.stevee.Utils.Items.Items_List;
 
-public class MachinePanel extends DefaultPanel{
+public class MachinePanel extends DefaultPanel {
     public MachinePanel(String title) {
         super(title);
     }

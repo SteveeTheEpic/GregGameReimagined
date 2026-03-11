@@ -58,10 +58,11 @@ public class Main {
                 TimeUnit.MILLISECONDS
         );
 
+
         scheduler.executeWithFixedDelay(
                 ProgressList::update,
                 0,
-                50,
+                5,
                 TimeUnit.MILLISECONDS
         );
     }

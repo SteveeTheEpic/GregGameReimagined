@@ -2,12 +2,13 @@ package de.stevee.Utils;
 
 
 
-import de.stevee.Logic.Items.Item;
+import com.googlecode.lanterna.gui2.Label;
 import de.stevee.Logic.Items.Tool;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,19 +55,29 @@ public class Inventory {
 
         return possible;
     }
+    public static ArrayList<String> getMatchesInList(List<Label> list, String match) {
+        if (match == null) match = "";
 
-    public static void showChanged() {
-        for (Item item : Items_List) {
-            if (item.prev_quantity - item.quantity != 0) {
-                System.out.printf("%s:  %d -> %d\n", item.name, item.prev_quantity, item.quantity);
+        StringBuilder regex = new StringBuilder();
+        for (char c : match.toCharArray()) {
+            regex.append(Pattern.quote(Character.toString(c))).append(".*");
+        }
+
+        Pattern pattern = Pattern.compile(regex.toString(), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
+
+        ArrayList<String> possible = new ArrayList<>();
+        for (Label s : list) {
+            Matcher matcher = pattern.matcher(s.getText());
+            if (matcher.find()) possible.add(s.getText());
+            if (s.getText().equalsIgnoreCase(match)) {
+                possible.clear();
+                possible.add(s.getText());
+                break;
             }
         }
 
-        for (Item item : Items_List) {
-            if (!(item instanceof Tool tool)) continue;
-            if (tool.prev_tier - tool.tier != 0) {
-                System.out.printf("%s's Tier:  %d -> %d\n", tool.name, tool.prev_tier, tool.tier);
-            }
-        }
+        possible.sort(Comparator.comparingInt(String::length).thenComparing(String.CASE_INSENSITIVE_ORDER));
+
+        return possible;
     }
 }

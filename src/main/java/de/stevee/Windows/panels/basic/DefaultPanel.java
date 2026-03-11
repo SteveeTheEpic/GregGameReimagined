@@ -1,11 +1,6 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.panels.basic;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Items.Item;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class DefaultPanel {
     private final Panel root;

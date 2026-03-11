@@ -5,29 +5,32 @@ import com.googlecode.lanterna.gui2.*;
 public class ProgressLabel {
     private final Panel root;
     private final Label nameLabel;
-    private final ProgressBar bar;
+    private final CustomProgressBar bar;
 
-    ProgressLabel(String text, int maxTicks) {
+    ProgressLabel(String text, long maxTicks) {
         root = new Panel(new BorderLayout());
 
         nameLabel = new Label(text);
-        bar = new ProgressBar(0, maxTicks);
-        bar.setPreferredWidth(20); // length of bar, tweak
-
+        bar = new CustomProgressBar(0, maxTicks);
+        bar.setPreferredWidth(40); // length of bar, tweak
 
         root.addComponent(nameLabel, BorderLayout.Location.LEFT);
-        root.addComponent(bar, BorderLayout.Location.CENTER);
+        root.addComponent(bar, BorderLayout.Location.RIGHT);
     }
 
     Component getComponent() {
         return root;
     }
 
-    void setProgress(int ticks) {
-        bar.setValue(ticks);
-    }
-
     void addProgress(int ticks) {
         bar.setValue(bar.getValue() + ticks);
+    }
+
+    public long getValue() {
+        return bar.getValue();
+    }
+
+    public long getMax() {
+        return bar.getMax();
     }
 }

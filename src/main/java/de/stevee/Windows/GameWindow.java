@@ -12,7 +12,7 @@ public class GameWindow extends BasicWindow {
     public GameWindow(Controller controller) {
         this.controller = controller;
 
-        setHints(List.of(Hint.FULL_SCREEN, Hint.NO_DECORATIONS));
+        setHints(List.of(Hint.FULL_SCREEN, Hint.NO_DECORATIONS, Hint.FIXED_SIZE));
         setComponent(controller.getUI().getRoot());
     }
 

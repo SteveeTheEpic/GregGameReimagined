@@ -5,12 +5,14 @@ import com.googlecode.lanterna.input.KeyType;
 import de.stevee.Windows.Section;
 import de.stevee.ui.UI;
 
+import java.io.IOException;
+
 public class Controller {
     public final UI ui;
 
     private boolean end = false;
 
-    public Controller() {
+    public Controller() throws IOException {
         this.ui = new UI(this);
 
         ui.setActiveSection(Section.FARM);
@@ -29,7 +31,7 @@ public class Controller {
         return ui;
     }
 
-    public void runSelected(Section section) {
+    public void runSelected(Section section) throws IOException {
         if (section == Section.QUIT) {
             setEnd(true);
             return;

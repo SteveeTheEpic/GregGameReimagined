@@ -1,9 +1,10 @@
 package de.stevee.Logic.Items;
 
-import de.stevee.Utils.Items;
 import de.stevee.ui.UI;
 
+import static de.stevee.Utils.Items.Items_List;
 import static de.stevee.Utils.Items.Omnitool;
+
 
 public class Item {
 
@@ -19,7 +20,7 @@ public class Item {
         this.quantity = 0;
         this.requiredTier = 0;
         this.showing = false;
-        Items.Items_List.add(this);
+        Items_List.add(this);
     }
 
     public Item(String name, boolean showing) {
@@ -27,7 +28,7 @@ public class Item {
         this.quantity = 0;
         this.requiredTier = 0;
         this.showing = showing;
-        Items.Items_List.add(this);
+        Items_List.add(this);
     }
 
     public Item(String name, boolean showing, int requiresTier) {
@@ -36,7 +37,7 @@ public class Item {
         this.farmable = true;
         this.requiredTier = requiresTier;
         this.showing = showing;
-        Items.Items_List.add(this);
+        Items_List.add(this);
     }
 
     public void addQuantity(int Quantity) {

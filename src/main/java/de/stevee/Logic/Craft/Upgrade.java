@@ -6,10 +6,6 @@ import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Items.Tool;
 import de.stevee.ui.UI;
 
-import java.util.ArrayList;
-
-import static de.stevee.Utils.Crafts.crafts;
-
 public class Upgrade extends Craft{
     private final UI ui;
     public Tool Product;

@@ -1,22 +1,18 @@
 package de.stevee.Logic.Craft;
 
-
-
 import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Main;
-import de.stevee.Utils.Crafts;
 import de.stevee.Utils.Items;
 import de.stevee.Windows.panels.ProcessPanel;
 import de.stevee.ui.UI;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static de.stevee.Logic.Machine.Machines.None;
-
+import static de.stevee.Utils.Crafts.crafts;
 
 public class Craft {
     private final UI ui;
@@ -37,7 +33,7 @@ public class Craft {
 
     public Craft(String id) {
         this.id = id;
-        Crafts.crafts.put(id, this);
+        crafts.put(id, this);
         ui = UI.getINSTANCE();
     }
 
@@ -70,18 +66,17 @@ public class Craft {
         useIngredients();
         Energy.subStored(requiredEnergy);
 
-        ProcessPanel.addProcess(id, duration);
-
         if (canCraft) {
             canCraft = false;
-            Main.scheduler.executeAfter(() -> {
+
+            ui.getProcessPanel().addProcess(id, duration, () -> {
                 Products.forEach((item, quantity) -> {
                     item.addQuantity(quantity);
                     ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prev_quantity, item.quantity));
                 });
 
                 canCraft = true;
-            }, duration * 20, TimeUnit.MILLISECONDS);
+            });
         }
     }
 
@@ -142,5 +137,10 @@ public class Craft {
 
     public HashMap<Item, Integer> getProducts() {
         return Products;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }

@@ -3,6 +3,7 @@ package de.stevee.Utils;
 
 
 import com.googlecode.lanterna.gui2.Label;
+import de.stevee.Logic.Craft.Craft;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -39,23 +40,27 @@ public class Inventory {
         return possible;
     }
 
-    public static ArrayList<String> getMatches(List<Label> list, String match) {
+    public static ArrayList<String> getMatches(List<?> list, String match) {
         if (match == null) match = "";
 
         StringBuilder regex = new StringBuilder();
         for (char c : match.toCharArray()) {
             regex.append(Pattern.quote(Character.toString(c))).append(".*");
         }
+        ArrayList<String> all = new ArrayList<>();
+        list.forEach(o -> {
+            all.add(o.toString());
+        });
 
         Pattern pattern = Pattern.compile(regex.toString(), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
 
         ArrayList<String> possible = new ArrayList<>();
-        for (Label s : list) {
-            Matcher matcher = pattern.matcher(s.getText());
-            if (matcher.find()) possible.add(s.getText());
-            if (s.getText().equalsIgnoreCase(match)) {
+        for (String s : all) {
+            Matcher matcher = pattern.matcher(s);
+            if (matcher.find()) possible.add(s);
+            if (s.equalsIgnoreCase(match)) {
                 possible.clear();
-                possible.add(s.getText());
+                possible.add(s);
                 break;
             }
         }

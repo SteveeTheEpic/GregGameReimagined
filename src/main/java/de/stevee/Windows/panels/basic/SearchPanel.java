@@ -2,33 +2,34 @@ package de.stevee.Windows.panels.basic;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
+import de.stevee.Windows.panels.InfoPanel;
+import de.stevee.ui.Component.HoverActionListBox;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static de.stevee.Utils.Crafts.crafts;
 import static de.stevee.Utils.Inventory.getMatches;
 
 public class SearchPanel<T> {
     private final Panel root;
     private final TextBox search;
-    private final ActionListBox results;
-    private int prev_idx = 0;
+    private final HoverActionListBox results;
 
-    private HashMap<String, T> all = new HashMap<>();
+    private ArrayList<T> all = new ArrayList<>();
     private ArrayList<String> filtered = new ArrayList<>();
 
-    public SearchPanel(String title, Map<String, T> labels) {
+    public SearchPanel(String title, List<T> labels) {
         root = new Panel(new BorderLayout());
 
         search = new TextBox(new TerminalSize(30, 1));
         search.setTextChangeListener((newText, changedByUser) -> applyFilter(newText));
 
-        results = new ActionListBox();
+        results = new HoverActionListBox();
 
-        all.putAll(labels);
-        filtered.addAll(all.keySet());
+        all.addAll(labels);
+        all.forEach((s) -> {
+            filtered.add(s.toString());
+        });
 
         root.addComponent(search.withBorder(Borders.singleLine("Search")), BorderLayout.Location.TOP);
         root.addComponent(results.withBorder(Borders.singleLine(title)), BorderLayout.Location.CENTER);
@@ -58,14 +59,14 @@ public class SearchPanel<T> {
 
     private void applyFilter(String string) {
         filtered.clear();
-        var matches = getMatches(all, string == null || string.isBlank() ? "" : string);
+        ArrayList<String> matches = getMatches(all, string == null || string.isBlank() ? "" : string);
 
         filtered.addAll(matches);
 
         recalculateResult();
     }
 
-    public ActionListBox getResults() {
+    public HoverActionListBox getResults() {
         return results;
     }
 
@@ -78,11 +79,11 @@ public class SearchPanel<T> {
         }
     }
 
-    public void addResult(String label) {
-        results.addItem(label, () -> {});
+    public void addListener(HoverActionListBox.Listener listener) {
+        results.addListener(listener);
     }
 
-    public T getActive() {
-        return all.get(filtered.get(results.getSelectedIndex()));
+    public void addResult(String t) {
+        results.addItem(t, () -> {});
     }
 }

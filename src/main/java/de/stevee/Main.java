@@ -8,6 +8,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Scheduler.Scheduler;
+import de.stevee.Utils.Lists;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
 import de.stevee.Windows.panels.CraftPanel;
@@ -33,15 +34,19 @@ public class Main {
 
         gui = new MultiWindowTextGUI(new SameTextGUIThread.Factory(), screen);
         gui.setTheme(createTheme());
+        InfoPanel.init(gui);
         Controller controller = new Controller();
-
         gui.addWindow(new GameWindow(controller));
+        gui.moveToTop(InfoPanel.getInfoPanelWindow());
+
 
         // Initialize scheduler tasks (runs in background)
         initializeScheduler();
 
         while (!controller.isEnd()) {
             boolean didWork = gui.getGUIThread().processEventsAndUpdate();
+            gui.getScreen().doResizeIfNecessary();
+            InfoPanel.updatePosition();
 
             if (!didWork) {
                 Thread.sleep(10);
@@ -63,9 +68,16 @@ public class Main {
 
 
         scheduler.executeWithFixedDelay(
-                ProgressList::update,
+                Lists::updateProgress,
                 0,
                 5,
+                TimeUnit.MILLISECONDS
+        );
+
+        scheduler.executeWithFixedDelay(
+                Lists::updateLabel,
+                150,
+                150,
                 TimeUnit.MILLISECONDS
         );
     }

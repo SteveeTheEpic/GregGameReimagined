@@ -5,23 +5,23 @@ import de.stevee.Logic.Items.Tool;
 import de.stevee.Windows.panels.basic.SearchPanel;
 import de.stevee.ui.UI;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import static de.stevee.Utils.Items.Items_List;
 
-public class InventoryPanel extends SearchPanel<Item> {
+
+public class InventoryPanel extends SearchPanel<String> {
     private final UI ui;
 
-    private static Map<String, Item> itemMap = new HashMap<>();
+    private static ArrayList<String> itemMap = new ArrayList<>();
 
     static {
         Items_List.forEach((item) -> {
             item.update();
             if (item.showing && (item instanceof Tool tool)) {
-                itemMap.put("%s's Tier: %d".formatted(tool.name, tool.tier), item);
+                itemMap.add("%s Level: %d".formatted(item.name, tool.tier));
             }  else if (item.showing) {
-                itemMap.put(item.name + ": " + item.quantity, item);
+                itemMap.add("%s: %d".formatted(item.name, item.quantity));
             }
         });
     }

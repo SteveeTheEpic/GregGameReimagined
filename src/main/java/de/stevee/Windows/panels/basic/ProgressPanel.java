@@ -9,7 +9,7 @@ import de.stevee.ui.Component.ProgressList;
 public class ProgressPanel {
     private final Panel root;
     private final Label header;
-    private static ProgressList list = null;
+    private final ProgressList list;
 
     public ProgressPanel(String title) {
         root = new Panel(new BorderLayout());
@@ -34,7 +34,7 @@ public class ProgressPanel {
         return list;
     }
 
-    public static void addProcess(String label, long time) {
-        list.addLabel(label, time);
+    public void addProcess(String label, long time, Runnable task) {
+        list.addLabel(label, time, task);
     }
 }

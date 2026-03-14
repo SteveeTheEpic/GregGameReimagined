@@ -3,15 +3,15 @@ package de.stevee.ui;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Items.Item;
-import de.stevee.Main;
 import de.stevee.Windows.Section;
 import de.stevee.Windows.panels.*;
 import de.stevee.Logic.Controller;
 import de.stevee.Windows.panels.basic.SearchPanel;
 
-import java.util.concurrent.TimeUnit;
+import java.io.IOException;
 
 import static de.stevee.Utils.Items.Items_List;
+
 
 public class UI {
     private static UI INSTANCE = null;
@@ -24,7 +24,6 @@ public class UI {
     private final SidePanel sidePanel;
     private final FarmPanel farmPanel;
     private final CraftPanel craftPanel;
-    private final InfoPanel infoPanel;
     private final InventoryPanel inventoryPanel;
     private final MachinePanel machinePanel;
     private final LogPanel logPanel;
@@ -41,7 +40,13 @@ public class UI {
         sidePanel = new SidePanel();
         sidePanel.setPreferredSize(new TerminalSize(18, 1));
         for (Section section : Section.values()) {
-            sidePanel.addItem(section.title(), () -> controller.runSelected(section));
+            sidePanel.addItem(section.title(), () -> {
+                try {
+                    controller.runSelected(section);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
         root.addComponent(sidePanel.withBorder(Borders.singleLine()), BorderLayout.Location.LEFT);
 
@@ -61,18 +66,21 @@ public class UI {
         machinePanel = new MachinePanel("Machines");
 
         processPanel = new ProcessPanel("Processes");
-        ProcessPanel.addProcess("test", 1000);
+        //processPanel.addProcess("test", 1000, () -> {});
 
         energyPanel = new EnergyPanel();
 
         craftPanel = new CraftPanel();
-        infoPanel = new InfoPanel();
 
         logPanel = new LogPanel(4);
         logHolder = new Panel(new BorderLayout());
         logHolder.addComponent(logPanel.withBorder(Borders.singleLine("Log")), BorderLayout.Location.CENTER);
 
         sidePanel.takeFocus();
+    }
+
+    public ProcessPanel getProcessPanel() {
+        return processPanel;
     }
 
     public Panel getRoot() {
@@ -83,7 +91,7 @@ public class UI {
         return activeSection;
     }
 
-    public void setActiveSection(Section section) {
+    public void setActiveSection(Section section) throws IOException {
         this.activeSection = section;
 
         // Swap main content
@@ -104,6 +112,12 @@ public class UI {
         root.removeComponent(logHolder);
         if (section != Section.INVENTORY) {
             root.addComponent(logHolder, BorderLayout.Location.BOTTOM);
+        }
+
+        if (section != Section.CRAFT) {
+            InfoPanel.setVisibility(false);
+        } else {
+            InfoPanel.setVisibility(true);
         }
 
         refreshAll();

@@ -1,11 +1,10 @@
 package de.stevee.Logic.Material;
 
 import de.stevee.Logic.Items.Item;
-import de.stevee.Utils.Items;
 
 import java.util.*;
 
-import static de.stevee.Logic.Material.Material.FLAGS.*;
+import static de.stevee.Utils.Items.Items_List;
 
 public class MaterialRegistry {
     private final Map<String, Material> materials = new HashMap<>();
@@ -16,9 +15,9 @@ public class MaterialRegistry {
         materials.put(m.id(), m);
         for (Material.FLAGS flag : m.flags()) {
             if (m.getRequiredTier() > 0) {
-                Items.Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())).setRequiredTier(m.getRequiredTier()));
+                Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())).setRequiredTier(m.getRequiredTier()));
             }
-            Items.Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())));
+            Items_List.add(new Item("%s %s".formatted(m.id(), flag.displayName())));
         }
         return m;
     }

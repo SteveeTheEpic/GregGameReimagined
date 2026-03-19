@@ -7,24 +7,19 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
 import de.stevee.Logic.Energy.Energy;
-import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Utils.Lists;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.panels.CraftPanel;
 import de.stevee.Windows.panels.InfoPanel;
-import de.stevee.ui.Component.ProgressList;
 
 import java.io.StringReader;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static final Scheduler scheduler = new Scheduler();
-    public static WindowBasedTextGUI gui;
+import static de.stevee.Logic.Scheduler.Scheduler.scheduler;
+import static de.stevee.ui.UI.gui;
 
+public class Main {
     public static void main(String[] args) throws Exception {
         DefaultTerminalFactory tf = new DefaultTerminalFactory();
         SwingTerminalFontConfiguration fontConfiguration = SwingTerminalFontConfiguration.getDefaultOfSize(24);
@@ -58,7 +53,6 @@ public class Main {
     }
 
     private static void initializeScheduler() {
-        // Energy tick - runs every 50ms (20 TPS)
         scheduler.executeWithFixedDelay(
                 Energy::tick,
                 0,

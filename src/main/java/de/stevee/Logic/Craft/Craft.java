@@ -3,13 +3,10 @@ package de.stevee.Logic.Craft;
 import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
-import de.stevee.Main;
 import de.stevee.Utils.Items;
-import de.stevee.Windows.panels.ProcessPanel;
 import de.stevee.ui.UI;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import static de.stevee.Logic.Machine.Machines.None;
 import static de.stevee.Utils.Crafts.crafts;

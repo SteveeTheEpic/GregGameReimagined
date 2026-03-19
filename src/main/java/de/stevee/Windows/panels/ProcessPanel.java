@@ -9,4 +9,8 @@ public class ProcessPanel extends ProgressPanel {
     public ProcessPanel(String title) {
         super(title);
     }
+
+    public void update() {
+        this.getList().update();
+    }
 }

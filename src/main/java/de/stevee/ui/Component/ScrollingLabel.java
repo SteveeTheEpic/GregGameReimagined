@@ -14,11 +14,11 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
-    private String[] lines;
-    private int scrollOffset = 0;
+    String[] lines;
+    int scrollOffset = 0;
     private int pauseCounter = 0;
     private boolean scrolling = false;
-    private boolean inPause = false;
+    boolean inPause = false;
     private int PAUSE_FRAMES = 8;
     private Integer labelWidth;
     private TerminalSize labelSize;
@@ -74,6 +74,8 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
         labelSize = getBounds(lines, labelSize);
         invalidate();
     }
+
+
 
     @Override
     protected ComponentRenderer<ScrollingLabel> createDefaultRenderer() {
@@ -174,5 +176,36 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
     }
     public void setBackgroundColor(TextColor backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public String getVisibleText() {
+        if (lines == null || lines.length == 0) return "";
+
+        String line = lines[0];
+        int textWidth = TerminalTextUtils.getColumnWidth(line);
+        int areaWidth = labelWidth != null ? labelWidth : 40; // fallback width
+
+        if (!scrolling || textWidth <= areaWidth) {
+            return line;
+        }
+
+        if (inPause) {
+            return " ".repeat(areaWidth); // blank during pause
+        }
+
+        // Smooth scroll-in from right (negative offset = offscreen right)
+        int displayStart = scrollOffset;
+        StringBuilder visible = new StringBuilder();
+
+        for (int i = 0; i < areaWidth; i++) {
+            int charIndex = displayStart + i;
+            if (charIndex >= 0 && charIndex < textWidth) {
+                visible.append(line.charAt(charIndex));
+            } else {
+                visible.append(' '); // empty space
+            }
+        }
+
+        return visible.toString();
     }
 }

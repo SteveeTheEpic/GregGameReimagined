@@ -52,20 +52,6 @@ public class Controller {
             return true;
         }
 
-        if (k.getKeyType() == KeyType.Character) {
-            if (!(ui.isSearchGui() && ui.isSearchFocused())) {
-                char c = Character.toLowerCase(k.getCharacter());
-                if (c == 'a') {
-                    ui.focusSidebar();
-                    return true;
-                }
-                if (c == 'd') {
-                    ui.focusMain();
-                    return true;
-                }
-            }
-        }
-
         if (k.getKeyType() == KeyType.Escape) {
             if (ui.isSearchGui() && ui.isSearchFocused()) {
                 ui.focusResults();
@@ -80,6 +66,8 @@ public class Controller {
                 ui.toggleSearchFocus();
                 return true;
             }
+
+            return true;
         }
 
         if (k.getKeyType() == KeyType.Backspace) {
@@ -88,6 +76,10 @@ public class Controller {
             }
             ui.focusSidebar();
             return true;
+        }
+
+        if (k.getKeyType() == KeyType.End) {
+            ui.getProcessPanel().addProcess("test", 1000, () -> {});
         }
 
         return false;

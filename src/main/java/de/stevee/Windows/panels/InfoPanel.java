@@ -6,8 +6,8 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Craft.Craft;
 import de.stevee.Logic.Machine.Machines;
-import de.stevee.Main;
 import de.stevee.ui.Component.ScrollingLabel;
+import de.stevee.ui.UI;
 
 import java.io.IOException;
 import java.util.Set;
@@ -61,7 +61,7 @@ public class InfoPanel {
     }
 
     public static void updatePosition() {
-        TerminalSize screenSize = Main.gui.getScreen().getTerminalSize();
+        TerminalSize screenSize = UI.gui.getScreen().getTerminalSize();
         TerminalSize panelSize = new TerminalSize(25, screenSize.getRows() - 2);
 
         infoPanelWindow.setFixedSize(panelSize);

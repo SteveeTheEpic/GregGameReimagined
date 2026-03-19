@@ -3,17 +3,21 @@ package de.stevee.ui;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Items.Item;
+import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Windows.Section;
 import de.stevee.Windows.panels.*;
 import de.stevee.Logic.Controller;
 import de.stevee.Windows.panels.basic.SearchPanel;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static de.stevee.Utils.Items.Items_List;
 
 
 public class UI {
+    public static WindowBasedTextGUI gui;
+
     private static UI INSTANCE = null;
     private final Controller controller;
 
@@ -66,7 +70,8 @@ public class UI {
         machinePanel = new MachinePanel("Machines");
 
         processPanel = new ProcessPanel("Processes");
-        //processPanel.addProcess("test", 1000, () -> {});
+        processPanel.addProcess("test364527683542342dawdsawdsawds534653242342563453245233457256", 1000, () -> {});
+        Scheduler.scheduler.executeWithFixedDelay(() -> processPanel.update(), 0, 1, TimeUnit.MILLISECONDS);
 
         energyPanel = new EnergyPanel();
 

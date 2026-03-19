@@ -35,7 +35,7 @@ public class HoverActionListBox extends ActionListBox {
         listeners.add(listener);
     }
 
-    public void removeHoverListener(Listener listener) {
+    public void removeListener(Listener listener) {
         listeners.remove(listener);
     }
 

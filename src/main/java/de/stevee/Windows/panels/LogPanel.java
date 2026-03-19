@@ -20,6 +20,11 @@ public class LogPanel extends TextBox {
         setHorizontalFocusSwitching(false);
     }
 
+    @Override
+    public boolean isFocusable() {
+        return false;
+    }
+
     public void append(String log) {
         lines.add(log);
         if (scroll == 0) {

@@ -1,11 +1,9 @@
 package de.stevee.Logic.Scheduler;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class Scheduler {
+    public static final Scheduler scheduler = new Scheduler();
     private final ScheduledExecutorService executor;
 
     public Scheduler() {
@@ -29,9 +27,11 @@ public class Scheduler {
 
     /**
      * Execute a task repeatedly at fixed intervals
+     *
+     * @return
      */
-    public void executeAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
-        executor.scheduleAtFixedRate(task, initialDelay, period, unit);
+    public Future<?> executeAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
+        return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
     }
 
     /**

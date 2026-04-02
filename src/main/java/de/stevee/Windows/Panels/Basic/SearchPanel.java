@@ -1,8 +1,8 @@
-package de.stevee.Windows.panels.basic;
+package de.stevee.Windows.Panels.Basic;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.ui.Component.HoverActionListBox;
+import de.stevee.Ui.Component.HoverActionListBox;
 
 import java.util.*;
 

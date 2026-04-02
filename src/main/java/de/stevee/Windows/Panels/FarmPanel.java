@@ -1,6 +1,6 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
-import de.stevee.Windows.panels.basic.DefaultPanel;
+import de.stevee.Windows.Panels.Basic.DefaultPanel;
 
 public class FarmPanel extends DefaultPanel {
     public FarmPanel(String title) {

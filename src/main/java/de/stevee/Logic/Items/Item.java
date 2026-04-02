@@ -1,6 +1,6 @@
 package de.stevee.Logic.Items;
 
-import de.stevee.ui.UI;
+import de.stevee.Ui.UI;
 
 import static de.stevee.Utils.Items.Items_List;
 import static de.stevee.Utils.Items.Omnitool;

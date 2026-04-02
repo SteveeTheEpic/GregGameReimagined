@@ -1,13 +1,13 @@
-package de.stevee.ui;
+package de.stevee.Ui;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Windows.Section;
-import de.stevee.Windows.panels.*;
+import de.stevee.Windows.Panels.*;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.panels.basic.SearchPanel;
+import de.stevee.Windows.Panels.Basic.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -106,10 +106,7 @@ public class UI {
         switch (section) {
             case FARM -> mainArea.addComponent(farmPanel.getRoot(), BorderLayout.Location.CENTER);
             case INVENTORY -> mainArea.addComponent(inventoryPanel.getRoot(), BorderLayout.Location.CENTER);
-            case CRAFT -> {
-                mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
-
-            }
+            case CRAFT -> mainArea.addComponent(craftPanel.getRoot(), BorderLayout.Location.CENTER);
             case ENERGY -> mainArea.addComponent(energyPanel.getRoot(), BorderLayout.Location.CENTER);
             case MACHINES -> mainArea.addComponent(machinePanel.getRoot(), BorderLayout.Location.CENTER);
             case PROCESS -> mainArea.addComponent(processPanel.getRoot(), BorderLayout.Location.CENTER);
@@ -163,7 +160,7 @@ public class UI {
         }
     }
 
-    public SearchPanel<?> getSearchPanel() {
+    public SearchPanel getSearchPanel() {
         switch (activeSection) {
             case INVENTORY -> {
                 return inventoryPanel;

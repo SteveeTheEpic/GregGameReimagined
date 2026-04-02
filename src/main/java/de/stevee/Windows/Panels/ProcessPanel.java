@@ -1,8 +1,6 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
-import com.googlecode.lanterna.gui2.*;
-import de.stevee.Windows.panels.basic.ProgressPanel;
-import de.stevee.ui.Component.ProgressList;
+import de.stevee.Windows.Panels.Basic.ProgressPanel;
 
 public class ProcessPanel extends ProgressPanel {
 

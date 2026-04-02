@@ -4,9 +4,11 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Utils.Items;
-import de.stevee.ui.UI;
+import de.stevee.Ui.UI;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static de.stevee.Logic.Machine.Machines.None;
 import static de.stevee.Utils.Crafts.crafts;
@@ -49,9 +51,10 @@ public class Craft {
             return;
         }
 
-        Item insufficientItem = hasEnoughIngredients();
-        if (insufficientItem != Items.None) {
-            ui.logInfo("Insufficient " + insufficientItem.name);
+        if (!hasEnoughIngredients().contains(Items.None)) {
+            for (Item item : hasEnoughIngredients()) {
+                ui.logInfo("Insufficient %s".formatted(item.name));
+            }
             return;
         }
 
@@ -92,14 +95,20 @@ public class Craft {
         return this;
     }
 
-    public Item hasEnoughIngredients() {
+    /**
+     *
+     * @return {@code List} of items that are missing
+     */
+    public List<Item> hasEnoughIngredients() {
+        ArrayList<Item> missingItems = new ArrayList<>();
         for (Item item : Ingredients.keySet()) {
             if (!((item.quantity - Ingredients.get(item)) >= 0 && machine)) {
-                return item;
+                missingItems.add(item);
             }
         }
 
-        return Items.None;
+        if (!missingItems.isEmpty()) return missingItems.stream().toList();
+        return List.of(Items.None);
     }
 
     public Craft setDuration(long duration) {

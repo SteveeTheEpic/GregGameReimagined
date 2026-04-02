@@ -1,4 +1,4 @@
-package de.stevee.ui.Component;
+package de.stevee.Ui.Component;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
@@ -18,7 +18,7 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
     int scrollOffset = 0;
     private int pauseCounter = 0;
     private boolean scrolling = false;
-    boolean inPause = false;
+    boolean inPause = true;
     private int PAUSE_FRAMES = 8;
     private Integer labelWidth;
     private TerminalSize labelSize;
@@ -183,28 +183,55 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
         if (lines == null || lines.length == 0) return "";
 
         String line = lines[0];
-        int textWidth = TerminalTextUtils.getColumnWidth(line);
         int areaWidth = labelWidth != null ? labelWidth : 40; // fallback width
 
-        if (!scrolling || textWidth <= areaWidth) {
+        if (!scrolling || TerminalTextUtils.getColumnWidth(line) <= areaWidth) {
             return line;
         }
-
         if (inPause) {
             return " ".repeat(areaWidth); // blank during pause
         }
 
-        // Smooth scroll-in from right (negative offset = offscreen right)
-        int displayStart = scrollOffset;
+        // The canonical way: walk code points, not chars, and count columns using Lanterna util
+        int[] codePoints = line.codePoints().toArray();
         StringBuilder visible = new StringBuilder();
+        int currCol = 0;
+        int logicalIndex = 0;
 
-        for (int i = 0; i < areaWidth; i++) {
-            int charIndex = displayStart + i;
-            if (charIndex >= 0 && charIndex < textWidth) {
-                visible.append(line.charAt(charIndex));
-            } else {
-                visible.append(' '); // empty space
-            }
+        // Find the first code point whose display start matches scrollOffset (may be negative)
+        // Fill leading spaces if scrollOffset < 0
+        int colPos = 0;
+        int startCol = Math.max(scrollOffset, 0); // the first visible column
+
+        // skip codepoints until we reach 'scrollOffset' columns
+        while (logicalIndex < codePoints.length && colPos < scrollOffset) {
+            char[] tmp = Character.toChars(codePoints[logicalIndex]);
+            colPos += TerminalTextUtils.getColumnWidth(new String(tmp));
+            logicalIndex++;
+        }
+
+        // Now collect as many codepoints as fit in areaWidth columns, padding if needed
+        int widthSoFar = 0;
+        // If scrolling in from right, fill space at left
+        if (scrollOffset < 0) {
+            int spaces = Math.min(areaWidth, -scrollOffset);
+            visible.append(" ".repeat(spaces));
+            widthSoFar += spaces;
+        }
+
+        while (widthSoFar < areaWidth && logicalIndex < codePoints.length) {
+            String cpStr = new String(Character.toChars(codePoints[logicalIndex]));
+            int cpWidth = TerminalTextUtils.getColumnWidth(cpStr);
+            // if adding would overflow, break
+            if (widthSoFar + cpWidth > areaWidth) break;
+            visible.append(cpStr);
+            widthSoFar += cpWidth;
+            logicalIndex++;
+        }
+        // Fill in trailing spaces if not enough content
+        while (widthSoFar < areaWidth) {
+            visible.append(' ');
+            widthSoFar++;
         }
 
         return visible.toString();

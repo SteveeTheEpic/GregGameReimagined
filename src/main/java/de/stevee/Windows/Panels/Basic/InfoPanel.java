@@ -1,9 +1,9 @@
-package de.stevee.Windows.panels.basic;
+package de.stevee.Windows.Panels.Basic;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.ui.UI;
+import de.stevee.Ui.UI;
 
 import java.io.IOException;
 import java.util.Set;

@@ -1,8 +1,8 @@
-package de.stevee.Windows.panels.basic;
+package de.stevee.Windows.Panels.Basic;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.ui.Component.ProgressLabel;
-import de.stevee.ui.Component.ProgressList;
+import de.stevee.Ui.Component.ProgressLabel;
+import de.stevee.Ui.Component.ProgressList;
 
 public class ProgressPanel {
     private final Panel root;

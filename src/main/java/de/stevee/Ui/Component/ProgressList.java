@@ -1,4 +1,4 @@
-package de.stevee.ui.Component;
+package de.stevee.Ui.Component;
 
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.gui2.*;
@@ -7,6 +7,8 @@ import static com.googlecode.lanterna.TextColor.ANSI.BLACK;
 import static com.googlecode.lanterna.TextColor.ANSI.WHITE;
 
 public class ProgressList extends AbstractListBox<ProgressLabel, ProgressList>{
+
+    private int time = 1;
 
     public ProgressList() {
         super();
@@ -17,10 +19,24 @@ public class ProgressList extends AbstractListBox<ProgressLabel, ProgressList>{
     public void update() {
         invalidate();
         for (int i = 0; i < getItems().size(); i++) {
+            if (time % 250 == 0) {
+                tickLabel();
+
+                // needed for integer overflow protection
+                time = 1;
+            }
+
             if (getItems().get(i).shouldBeRemoved()) {
                 removeItem(i);
                 return;
             }
+        }
+        time++;
+    }
+
+    private void tickLabel() {
+        for (ProgressLabel label : getItems()) {
+            label.getLabel().tick();
         }
     }
 
@@ -30,8 +46,8 @@ public class ProgressList extends AbstractListBox<ProgressLabel, ProgressList>{
             TerminalSize area = graphics.getSize();
             graphics.fillRectangle(TerminalPosition.TOP_LEFT_CORNER, area, ' ');
 
-            String name = item.nameLabel.getText();
-            ScrollingLabel nameScroller = new ScrollingLabel(name, area.getColumns() / 3);
+            ScrollingLabel nameScroller = item.getLabel();
+            nameScroller.setLabelWidth(area.getColumns() / 3);
             String scrollingName = nameScroller.getVisibleText();
             graphics.putString(0, 0, scrollingName);
 

@@ -1,16 +1,15 @@
-package de.stevee.ui.Component;
+package de.stevee.Ui.Component;
 
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Scheduler.Scheduler;
 import de.stevee.Utils.Lists;
 
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class ProgressLabel {
     private final Panel root;
-    final Label nameLabel;
+    final ScrollingLabel nameLabel;
     final CustomProgressBar bar;
     private final Runnable task;
     private final Future<?> test;
@@ -19,7 +18,7 @@ public class ProgressLabel {
         this.task = task;
         root = new Panel(new BorderLayout());
 
-        nameLabel = new Label(text);
+        nameLabel = new ScrollingLabel(text, 5);
         bar = new CustomProgressBar(0, maxTicks);
         Scheduler.scheduler.executeAfter(task, maxTicks * 5, TimeUnit.MILLISECONDS);
         bar.setPreferredWidth(40); // length of bar, tweak
@@ -37,6 +36,15 @@ public class ProgressLabel {
     void addProgress(int ticks) {
         bar.setValue(bar.getValue() + ticks);
         bar.invalidate();
+    }
+
+
+    public void updateLabelWidth(int width) {
+        nameLabel.setLabelWidth(width);
+    }
+
+    public ScrollingLabel getLabel() {
+        return nameLabel;
     }
 
     public long getValue() {

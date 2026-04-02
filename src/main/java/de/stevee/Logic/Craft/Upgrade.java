@@ -4,7 +4,7 @@ package de.stevee.Logic.Craft;
 
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Items.Tool;
-import de.stevee.ui.UI;
+import de.stevee.Ui.UI;
 
 public class Upgrade extends Craft{
     private final UI ui;

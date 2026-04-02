@@ -1,4 +1,4 @@
-package de.stevee.Windows.panels.basic;
+package de.stevee.Windows.Panels.Basic;
 
 import com.googlecode.lanterna.gui2.*;
 

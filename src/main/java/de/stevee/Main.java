@@ -10,14 +10,14 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Utils.Lists;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.panels.basic.InfoPanel;
+import de.stevee.Windows.Panels.Basic.InfoPanel;
 
 import java.io.StringReader;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static de.stevee.Logic.Scheduler.Scheduler.scheduler;
-import static de.stevee.ui.UI.gui;
+import static de.stevee.Ui.UI.gui;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -65,13 +65,6 @@ public class Main {
                 Lists::updateProgress,
                 0,
                 5,
-                TimeUnit.MILLISECONDS
-        );
-
-        scheduler.executeWithFixedDelay(
-                Lists::updateLabel,
-                150,
-                150,
                 TimeUnit.MILLISECONDS
         );
     }

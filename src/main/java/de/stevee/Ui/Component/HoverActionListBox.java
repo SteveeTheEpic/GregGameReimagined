@@ -1,4 +1,4 @@
-package de.stevee.ui.Component;
+package de.stevee.Ui.Component;
 
 import com.googlecode.lanterna.gui2.ActionListBox;
 import com.googlecode.lanterna.gui2.Interactable;

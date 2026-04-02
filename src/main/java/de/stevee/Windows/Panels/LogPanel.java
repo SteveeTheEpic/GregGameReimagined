@@ -1,4 +1,4 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.TextBox;

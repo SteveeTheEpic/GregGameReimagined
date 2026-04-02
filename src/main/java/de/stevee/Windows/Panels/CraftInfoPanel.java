@@ -1,11 +1,11 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Craft.Craft;
 import de.stevee.Logic.Machine.Machines;
-import de.stevee.Windows.panels.basic.InfoPanel;
-import de.stevee.ui.Component.ScrollingLabel;
+import de.stevee.Windows.Panels.Basic.InfoPanel;
+import de.stevee.Ui.Component.ScrollingLabel;
 
 public class CraftInfoPanel implements InfoPanel<Craft> {
     public void setInformation(Craft craft) {

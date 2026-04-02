@@ -1,7 +1,7 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
 import de.stevee.Logic.Machine.Machine;
-import de.stevee.Windows.panels.basic.DefaultPanel;
+import de.stevee.Windows.Panels.Basic.DefaultPanel;
 
 import static de.stevee.Utils.Items.Items_List;
 

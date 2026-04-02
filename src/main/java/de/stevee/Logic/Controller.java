@@ -3,7 +3,7 @@ package de.stevee.Logic;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import de.stevee.Windows.Section;
-import de.stevee.ui.UI;
+import de.stevee.Ui.UI;
 
 import java.io.IOException;
 

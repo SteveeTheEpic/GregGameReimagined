@@ -1,7 +1,7 @@
-package de.stevee.Windows.panels;
+package de.stevee.Windows.Panels;
 
 import de.stevee.Logic.Craft.Craft;
-import de.stevee.Windows.panels.basic.SearchPanel;
+import de.stevee.Windows.Panels.Basic.SearchPanel;
 
 import static de.stevee.Utils.Crafts.crafts;
 

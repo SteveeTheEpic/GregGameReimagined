@@ -2,12 +2,10 @@ package de.stevee.Windows.panels.basic;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Windows.panels.InfoPanel;
 import de.stevee.ui.Component.HoverActionListBox;
 
 import java.util.*;
 
-import static de.stevee.Utils.Crafts.crafts;
 import static de.stevee.Utils.Inventory.getMatches;
 
 public class SearchPanel<T> {

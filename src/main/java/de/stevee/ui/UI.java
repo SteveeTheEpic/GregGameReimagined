@@ -28,6 +28,7 @@ public class UI {
     private final SidePanel sidePanel;
     private final FarmPanel farmPanel;
     private final CraftPanel craftPanel;
+    private final CraftInfoPanel craftInfoPanel;
     private final InventoryPanel inventoryPanel;
     private final MachinePanel machinePanel;
     private final LogPanel logPanel;
@@ -75,7 +76,8 @@ public class UI {
 
         energyPanel = new EnergyPanel();
 
-        craftPanel = new CraftPanel();
+        craftInfoPanel = new CraftInfoPanel();
+        craftPanel = new CraftPanel(craftInfoPanel);
 
         logPanel = new LogPanel(4);
         logHolder = new Panel(new BorderLayout());
@@ -120,9 +122,9 @@ public class UI {
         }
 
         if (section != Section.CRAFT) {
-            InfoPanel.setVisibility(false);
+            craftInfoPanel.setVisibility(false);
         } else {
-            InfoPanel.setVisibility(true);
+            craftInfoPanel.setVisibility(true);
         }
 
         refreshAll();

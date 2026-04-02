@@ -178,6 +178,7 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
         this.backgroundColor = backgroundColor;
     }
 
+    // TODO: Fix this crap
     public String getVisibleText() {
         if (lines == null || lines.length == 0) return "";
 

@@ -12,11 +12,11 @@ public class MachinePanel extends DefaultPanel {
     }
 
     public void refresh() {
-        getList().clearItems();
+        clearItems();
         Items_List.forEach((item) -> {
             item.update();
             if (item.showing && (item instanceof Machine machine)) {
-                getList().addItem(machine.name + ": " + machine.quantity, () -> {});
+                addItem(machine.name + ": " + machine.quantity, () -> {});
             }
         });
     }

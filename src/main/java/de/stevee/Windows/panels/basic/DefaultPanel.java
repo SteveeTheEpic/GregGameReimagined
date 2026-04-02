@@ -33,4 +33,8 @@ public class DefaultPanel {
     public void addItem(String label, Runnable action) {
         list.addItem(label, action);
     }
+
+    public void clearItems() {
+        this.list.clearItems();
+    }
 }

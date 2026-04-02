@@ -79,7 +79,7 @@ public class Controller {
         }
 
         if (k.getKeyType() == KeyType.End) {
-            ui.getProcessPanel().addProcess("test", 1000, () -> {});
+            ui.getProcessPanel().addProcess("test252652325223423qwdawsawd24q34rey", 1000, () -> {});
         }
 
         return false;

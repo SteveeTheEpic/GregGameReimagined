@@ -7,10 +7,10 @@ import static de.stevee.Utils.Crafts.crafts;
 
 
 public class CraftPanel extends SearchPanel<Craft> {
-    public CraftPanel() {
+    public CraftPanel(CraftInfoPanel craftInfoPanel) {
         super("Crafts", crafts.values().stream().toList());
         addListener((newIndex, newItem) -> {
-            InfoPanel.setInformation(crafts.get(newItem.toString()));
+            craftInfoPanel.setInformation(crafts.get(newItem.toString()));
         });
     }
 

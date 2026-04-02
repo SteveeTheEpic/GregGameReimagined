@@ -10,7 +10,7 @@ import de.stevee.Logic.Energy.Energy;
 import de.stevee.Utils.Lists;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.panels.InfoPanel;
+import de.stevee.Windows.panels.basic.InfoPanel;
 
 import java.io.StringReader;
 import java.util.Properties;

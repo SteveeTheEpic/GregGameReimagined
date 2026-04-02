@@ -3,13 +3,14 @@ package de.stevee.ui.Component;
 import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.gui2.*;
 
-import java.util.List;
+import static com.googlecode.lanterna.TextColor.ANSI.BLACK;
+import static com.googlecode.lanterna.TextColor.ANSI.WHITE;
 
 public class ProgressList extends AbstractListBox<ProgressLabel, ProgressList>{
-    private final ProgressLabelRenderer renderer = new ProgressLabelRenderer();
 
     public ProgressList() {
         super();
+        ProgressLabelRenderer renderer = new ProgressLabelRenderer();
         setListItemRenderer(renderer);
     }
 
@@ -29,51 +30,48 @@ public class ProgressList extends AbstractListBox<ProgressLabel, ProgressList>{
             TerminalSize area = graphics.getSize();
             graphics.fillRectangle(TerminalPosition.TOP_LEFT_CORNER, area, ' ');
 
-            // Use ScrollingLabel for name rendering
             String name = item.nameLabel.getText();
-            ScrollingLabel nameScroller = new ScrollingLabel(name, area.getColumns() / 2);
+            ScrollingLabel nameScroller = new ScrollingLabel(name, area.getColumns() / 3);
             String scrollingName = nameScroller.getVisibleText();
             graphics.putString(0, 0, scrollingName);
 
-            // Progress bar WITH number inside
-            long value = item.getValue();
-            long max = item.bar.getMax();
-            double pct = max > 0 ? (100.0 * value / max) : 0;
+            long currProgress = item.getValue();
+            long maxProgress = item.bar.getMax();
+            double pct = maxProgress > 0 ? (100.0 * currProgress / maxProgress) : 0;
             String percent = String.format("%3d%%", (int)pct);
 
-            int barStart = area.getColumns() / 2 + 2;
+            int barStart = area.getColumns() / 3 + 2;
             int barWidth = area.getColumns() - barStart;
-            int filled = max > 0 ? (int)((value * barWidth) / max) : 0;
+            int filled = maxProgress > 0 ? (int)((currProgress * barWidth) / maxProgress) : 0;
 
-            // Number position inside bar
-            int numberPos = barStart + barWidth / 2 - 1;
-            boolean numberOverlapsFilled = numberPos + percent.length() > barStart + filled;
+            int numberPos = barStart + barWidth / 2 - 2;
 
-            TextColor fgColor, bgColor;
-            if (numberOverlapsFilled) {
-                fgColor = TextColor.ANSI.BLACK;  // Dark on filled
-                bgColor = TextColor.ANSI.WHITE;
-            } else {
-                fgColor = TextColor.ANSI.WHITE;  // Light on empty
-                bgColor = TextColor.ANSI.BLACK;
-            }
+            TextColor fgColor = BLACK;
+            TextColor bgColor = WHITE;
 
-            // Draw bar (filled first, then empty)
-            graphics.setForegroundColor(bgColor);
-            graphics.setBackgroundColor(bgColor);
             for (int i = 0; i < barWidth; i++) {
-                char barChar = (i < filled) ? '█' : ' ';
-                graphics.putString(barStart + i, 0, String.valueOf(barChar));
+                if (i < filled) {
+                    graphics.setBackgroundColor(bgColor);
+                } else {
+                    graphics.setBackgroundColor(fgColor);
+                }
+                graphics.putString(barStart + i, 0, " ");
             }
 
-            // Draw percentage INSIDE bar with inversion
-            graphics.setForegroundColor(fgColor);
-            graphics.setBackgroundColor(bgColor);
             if (numberPos >= barStart && numberPos + percent.length() <= barStart + barWidth) {
-                graphics.putString(numberPos, 0, percent);
+                for (int i = 0; i < percent.length(); i++) {
+                    if (numberPos + i > barStart + filled - 1) {
+                        graphics.setForegroundColor(bgColor);
+                        graphics.setBackgroundColor(fgColor);
+                    } else {
+                        graphics.setForegroundColor(fgColor);
+                        graphics.setBackgroundColor(bgColor);
+                    }
+                    graphics.putString(numberPos + i, 0, String.valueOf(percent.toCharArray()[i]));
+                }
             }
 
-            // Selection highlight (whole row)
+            // TODO: Fix this and that
             if (selected) {
                 graphics.enableModifiers(SGR.BOLD, SGR.BLINK);
             }

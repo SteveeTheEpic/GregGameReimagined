@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static de.stevee.Logic.Machine.Machines.None;
+import static de.stevee.Logic.Machine.Machines.NONE;
 import static de.stevee.Logic.Craft.Crafts.crafts;
 
 public class Craft {
@@ -23,7 +23,7 @@ public class Craft {
 
     public long requiredEnergy = 0;
     public long duration = 0;
-    public Machine required = None;
+    public Machine required = NONE;
     public boolean machine = true;
     public boolean refund = false;
     public boolean canCraft = true;

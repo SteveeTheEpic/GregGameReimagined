@@ -6,27 +6,64 @@ import de.stevee.Windows.Section;
 import de.stevee.Ui.UI;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Controller {
     public final UI ui;
-
     private boolean end = false;
+
+    private final Map<KeyType, Runnable> keyTypeMap = new HashMap<>();
+    private final Map<Character, Runnable> keyCharMap = new HashMap<>();
 
     public Controller() throws IOException {
         this.ui = new UI(this);
+
+        bindKey(KeyType.Escape, () -> {
+            if (ui.isSearchGui() && ui.isSearchFocused()) {
+                ui.focusResults();
+            }
+            ui.focusSidebar();
+        });
+
+        bindKey(KeyType.PageDown, () -> ui.scrollLog(-3));
+        bindKey(KeyType.PageUp, () -> ui.scrollLog(3));
+
+        bindKey(KeyType.Tab, () -> {
+            if (ui.isSearchGui()) {
+                ui.toggleSearchFocus();
+            }
+        });
+
+        bindKey(KeyType.Backspace, () -> {
+            if (ui.isSearchGui() && ui.isSearchFocused()) {
+            } else {
+                ui.focusSidebar();
+            }
+        });
+
+        bindKey(KeyType.End, () -> {
+            ui.getProcessPanel().addProcess("test252652325223423qwdawsawd24q34rey", 1000, () -> {});
+        });
 
         ui.setActiveSection(Section.FARM);
         ui.logInfo("Welcome!");
     }
 
+    private void bindKey(KeyType key, Runnable task) {
+        keyTypeMap.put(key, task);
+    }
+
+    private void bindKey(char key, Runnable task) {
+        keyCharMap.put(key, task);
+    }
+
     public void setEnd(boolean end) {
         this.end = end;
     }
-
     public boolean isEnd() {
         return end;
     }
-
     public UI getUI() {
         return ui;
     }
@@ -43,43 +80,12 @@ public class Controller {
     public boolean handleGlobalKey(KeyStroke k) {
         if (k == null) return false;
 
-        if (k.getKeyType() == KeyType.PageUp) {
-            ui.scrollLog(+3);
+        if (k.getKeyType() == KeyType.Character && keyCharMap.containsKey(k.getCharacter())) {
+            keyCharMap.get(k.getCharacter()).run();
             return true;
-        }
-        if (k.getKeyType() == KeyType.PageDown) {
-            ui.scrollLog(-3);
+        } else if (keyTypeMap.containsKey(k.getKeyType())) {
+            keyTypeMap.get(k.getKeyType()).run();
             return true;
-        }
-
-        if (k.getKeyType() == KeyType.Escape) {
-            if (ui.isSearchGui() && ui.isSearchFocused()) {
-                ui.focusResults();
-                return true;
-            }
-            ui.focusSidebar();
-            return true;
-        }
-
-        if (k.getKeyType() == KeyType.Tab) {
-            if (ui.isSearchGui()) {
-                ui.toggleSearchFocus();
-                return true;
-            }
-
-            return true;
-        }
-
-        if (k.getKeyType() == KeyType.Backspace) {
-            if (ui.isSearchGui() && ui.isSearchFocused()) {
-                return false;
-            }
-            ui.focusSidebar();
-            return true;
-        }
-
-        if (k.getKeyType() == KeyType.End) {
-            ui.getProcessPanel().addProcess("test252652325223423qwdawsawd24q34rey", 1000, () -> {});
         }
 
         return false;

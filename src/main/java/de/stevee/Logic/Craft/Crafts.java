@@ -8,7 +8,7 @@ import de.stevee.Utils.MaterialUtil;
 
 import java.util.HashMap;
 
-import static de.stevee.Logic.Machine.Machines.None;
+import static de.stevee.Logic.Machine.Machines.NONE;
 import static de.stevee.Logic.Material.Material.FLAGS.*;
 import static de.stevee.Logic.Items.Items.*;
 import static de.stevee.Logic.Machine.Machines.*;
@@ -23,7 +23,7 @@ public class Crafts {
             for (Material.FLAGS flags : Material.FLAGS.values()) {
                 if (material.hasFlag(flags)) {
                     if (flags == Material.FLAGS.ORE && material.hasFlag(INGOT)) {
-                        new Craft("%s %s".formatted(material.id(), INGOT.displayName())).addItem(MaterialUtil.getMaterial(Material.FLAGS.ORE, material), 1).addOutput(MaterialUtil.getMaterial(INGOT, material), 1).requireMachine(None);
+                        new Craft("%s %s".formatted(material.id(), INGOT.displayName())).addItem(MaterialUtil.getMaterial(Material.FLAGS.ORE, material), 1).addOutput(MaterialUtil.getMaterial(INGOT, material), 1).requireMachine(NONE);
                     }
 
                     if (flags == PLATE && material.hasFlag(INGOT)) {
@@ -73,15 +73,15 @@ public class Crafts {
     }
 
     // Tool Craft
-    public static Craft Omnitool_Wooden = new Upgrade("Omnitool Wooden").addItem(Planks, 5).addOutput(Omnitool, 1).requireMachine(Crafting_table);
+    public static Craft Omnitool_Wooden = new Upgrade("Omnitool Wooden").addItem(Planks, 5).addOutput(Omnitool, 1).requireMachine(CRAFTING_TABLE);
 
     // Machine Crafts
-    public static Craft CraftingTableC = new Craft("Crafting Table").addItem(Planks, 4).addOutput(Crafting_table, 1);
-    public static Craft FurnaceC = new Craft("Furnace").addItem(Cobblestone, 8).addOutput(Furnace, 1).requireMachine(Crafting_table);
+    public static Craft CraftingTableC = new Craft("Crafting Table").addItem(Planks, 4).addOutput(CRAFTING_TABLE, 1);
+    public static Craft FurnaceC = new Craft("Furnace").addItem(Cobblestone, 8).addOutput(FURNACE, 1).requireMachine(CRAFTING_TABLE);
 
     // Resource Crafts
     public static Craft PlanksC = new Craft("Planks").addItem(Wood, 1).addOutput(Planks, 4).setDuration(1000);
-    public static Craft StoneC = new Craft("Stone").addItem(Cobblestone, 1).addOutput(Stone, 1).requireMachine(Furnace);
+    public static Craft StoneC = new Craft("Stone").addItem(Cobblestone, 1).addOutput(Stone, 1).requireMachine(FURNACE);
 
 
 }

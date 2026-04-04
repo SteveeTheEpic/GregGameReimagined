@@ -31,7 +31,7 @@ public class CraftInfoPanel implements InfoPanel<Craft> {
             panel.addComponent(new Label("%s: %d".formatted(entry.getKey().name, entry.getValue())));
         }
 
-        if (craft.required != Machines.None) {
+        if (craft.required != Machines.NONE) {
             Label label = new Label("Machine: %s".formatted(craft.required.name));
             if (craft.required.quantity > 0) label.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
             else label.setForegroundColor(TextColor.ANSI.RED_BRIGHT);

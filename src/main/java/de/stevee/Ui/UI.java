@@ -12,7 +12,7 @@ import de.stevee.Windows.Panels.Basic.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static de.stevee.Utils.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Items_List;
 
 
 public class UI {

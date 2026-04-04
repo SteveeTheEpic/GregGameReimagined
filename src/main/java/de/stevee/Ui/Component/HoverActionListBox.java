@@ -21,7 +21,7 @@ public class HoverActionListBox extends ActionListBox {
         if (newIndex != oldIndex) {
             for (Listener listener : listeners) {
                 try {
-                    listener.onHoverChanged(newIndex, getItemAt(newIndex));
+                    listener.onIndexChange(newIndex, getItemAt(newIndex));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -40,6 +40,6 @@ public class HoverActionListBox extends ActionListBox {
     }
 
     public interface Listener {
-        void onHoverChanged(int newIndex, Runnable newItem) throws IOException;
+        void onIndexChange(int newIndex, Runnable newItem) throws IOException;
     }
 }

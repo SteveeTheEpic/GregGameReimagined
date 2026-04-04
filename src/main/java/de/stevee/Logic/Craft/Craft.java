@@ -3,7 +3,7 @@ package de.stevee.Logic.Craft;
 import de.stevee.Logic.Energy.Energy;
 import de.stevee.Logic.Items.Item;
 import de.stevee.Logic.Machine.Machine;
-import de.stevee.Utils.Items;
+import de.stevee.Logic.Items.Items;
 import de.stevee.Ui.UI;
 
 import java.util.ArrayList;
@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import static de.stevee.Logic.Machine.Machines.None;
-import static de.stevee.Utils.Crafts.crafts;
+import static de.stevee.Logic.Craft.Crafts.crafts;
 
 public class Craft {
     private final UI ui;
 
-    HashMap<Item, Integer> Ingredients = new HashMap<>();
-    HashMap<Item, Integer> Products = new HashMap<>();
+    HashMap<Item, Integer> ingredients = new HashMap<>();
+    HashMap<Item, Integer> products = new HashMap<>();
 
     private final String id;
 
@@ -37,7 +37,7 @@ public class Craft {
     }
 
     public void craft() {
-        if (Ingredients.isEmpty() && Products.isEmpty()) {
+        if (ingredients.isEmpty() && products.isEmpty()) {
             inform(errorMsg);
         }
 
@@ -70,9 +70,9 @@ public class Craft {
             canCraft = false;
 
             ui.getProcessPanel().addProcess(id, duration, () -> {
-                Products.forEach((item, quantity) -> {
+                products.forEach((item, quantity) -> {
                     item.addQuantity(quantity);
-                    ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prev_quantity, item.quantity));
+                    ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prevQuantity, item.quantity));
                 });
 
                 canCraft = true;
@@ -81,12 +81,12 @@ public class Craft {
     }
 
     public Craft addItem(Item item, int quantity) {
-        Ingredients.put(item, quantity);
+        ingredients.put(item, quantity);
         return this;
     }
 
     public Craft addOutput(Item item, int quantity) {
-        Products.put(item, quantity);
+        products.put(item, quantity);
         return this;
     }
 
@@ -101,8 +101,8 @@ public class Craft {
      */
     public List<Item> hasEnoughIngredients() {
         ArrayList<Item> missingItems = new ArrayList<>();
-        for (Item item : Ingredients.keySet()) {
-            if (!((item.quantity - Ingredients.get(item)) >= 0 && machine)) {
+        for (Item item : ingredients.keySet()) {
+            if (!((item.quantity - ingredients.get(item)) >= 0 && machine)) {
                 missingItems.add(item);
             }
         }
@@ -117,14 +117,14 @@ public class Craft {
     }
 
     void refundAll() {
-        for (Item item : Ingredients.keySet()) {
-            item.addQuantity(Ingredients.get(item));
+        for (Item item : ingredients.keySet()) {
+            item.addQuantity(ingredients.get(item));
         }
     }
 
     void useIngredients() {
-        for (Item item : Ingredients.keySet()) {
-            item.subQuantity(Ingredients.get(item));
+        for (Item item : ingredients.keySet()) {
+            item.subQuantity(ingredients.get(item));
         }
     }
 
@@ -138,11 +138,11 @@ public class Craft {
     }
 
     public HashMap<Item, Integer> getIngredients() {
-        return Ingredients;
+        return ingredients;
     }
 
     public HashMap<Item, Integer> getProducts() {
-        return Products;
+        return products;
     }
 
     @Override

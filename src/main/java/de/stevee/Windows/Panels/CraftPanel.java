@@ -3,7 +3,7 @@ package de.stevee.Windows.Panels;
 import de.stevee.Logic.Craft.Craft;
 import de.stevee.Windows.Panels.Basic.SearchPanel;
 
-import static de.stevee.Utils.Crafts.crafts;
+import static de.stevee.Logic.Craft.Crafts.crafts;
 
 
 public class CraftPanel extends SearchPanel<Craft> {

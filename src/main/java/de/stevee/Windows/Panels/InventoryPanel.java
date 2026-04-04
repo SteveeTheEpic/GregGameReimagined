@@ -6,7 +6,7 @@ import de.stevee.Ui.UI;
 
 import java.util.ArrayList;
 
-import static de.stevee.Utils.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Items_List;
 
 
 public class InventoryPanel extends SearchPanel<String> {

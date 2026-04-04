@@ -10,7 +10,6 @@ public class DefaultPanel {
     public DefaultPanel(String title) {
         root = new Panel(new BorderLayout());
         header = new Label(title);
-        header.setLayoutData(BorderLayout.Location.TOP);
 
         list = new ActionListBox();
 

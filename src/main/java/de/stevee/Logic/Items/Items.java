@@ -1,10 +1,6 @@
-package de.stevee.Utils;
-
-import de.stevee.Logic.Items.Item;
-import de.stevee.Logic.Items.Tool;
+package de.stevee.Logic.Items;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Items {
     public static ArrayList<Item> Items_List = new ArrayList<>();

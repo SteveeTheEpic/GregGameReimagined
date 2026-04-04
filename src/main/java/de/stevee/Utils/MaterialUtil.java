@@ -1,11 +1,12 @@
 package de.stevee.Utils;
 
 import de.stevee.Logic.Items.Item;
+import de.stevee.Logic.Items.Items;
 import de.stevee.Logic.Material.Material;
 
 import java.util.Objects;
 
-import static de.stevee.Utils.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Items_List;
 
 public class MaterialUtil {
 

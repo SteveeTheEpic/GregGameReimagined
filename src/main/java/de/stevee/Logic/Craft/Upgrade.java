@@ -8,8 +8,8 @@ import de.stevee.Ui.UI;
 
 public class Upgrade extends Craft{
     private final UI ui;
-    public Tool Product;
-    public int Tier;
+    public Tool product;
+    public int tier;
 
     public Upgrade(String id) {
         super(id);
@@ -18,7 +18,7 @@ public class Upgrade extends Craft{
 
     @Override
     public void craft() {
-        Ingredients.forEach((item, quantity) -> {
+        ingredients.forEach((item, quantity) -> {
             // Checks if the Tool is Upgradeable and the Machine is available
             if ((item.quantity - quantity) >= 0 && machine) {
                 item.subQuantity(quantity);
@@ -35,15 +35,15 @@ public class Upgrade extends Craft{
             refundAll();
         } else {
             // adds an tier
-            Product.setTier(Tier);
-            ui.logInfo("Upgraded %s to Tier %d".formatted(Product.name, Product.tier));
+            product.setTier(tier);
+            ui.logInfo("Upgraded %s to Tier %d".formatted(product.name, product.tier));
         }
     }
 
     @Override
     public Craft addOutput(Item item, int tier) {
-        Product = (Tool) item;
-        Tier = tier;
+        product = (Tool) item;
+        this.tier = tier;
         return this;
     }
 }

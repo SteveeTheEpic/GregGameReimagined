@@ -19,7 +19,7 @@ public class ScrollingLabel extends AbstractComponent<ScrollingLabel> {
     private int pauseCounter = 0;
     private boolean scrolling = false;
     boolean inPause = true;
-    private int PAUSE_FRAMES = 8;
+    private int PAUSE_FRAMES = 12;
     private Integer labelWidth;
     private TerminalSize labelSize;
     private TextColor foregroundColor;

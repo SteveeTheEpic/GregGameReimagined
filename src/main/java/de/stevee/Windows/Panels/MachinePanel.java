@@ -3,7 +3,7 @@ package de.stevee.Windows.Panels;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Windows.Panels.Basic.DefaultPanel;
 
-import static de.stevee.Utils.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Items_List;
 
 
 public class MachinePanel extends DefaultPanel {

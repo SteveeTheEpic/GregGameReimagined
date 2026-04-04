@@ -1,17 +1,16 @@
-package de.stevee.Utils;
+package de.stevee.Logic.Craft;
 
 
 
-import de.stevee.Logic.Craft.Craft;
-import de.stevee.Logic.Craft.Upgrade;
 import de.stevee.Logic.Material.Material;
 import de.stevee.Logic.Material.Materials;
+import de.stevee.Utils.MaterialUtil;
 
 import java.util.HashMap;
 
 import static de.stevee.Logic.Machine.Machines.None;
 import static de.stevee.Logic.Material.Material.FLAGS.*;
-import static de.stevee.Utils.Items.*;
+import static de.stevee.Logic.Items.Items.*;
 import static de.stevee.Logic.Machine.Machines.*;
 
 

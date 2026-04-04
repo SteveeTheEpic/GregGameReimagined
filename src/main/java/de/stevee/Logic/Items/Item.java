@@ -2,15 +2,15 @@ package de.stevee.Logic.Items;
 
 import de.stevee.Ui.UI;
 
-import static de.stevee.Utils.Items.Items_List;
-import static de.stevee.Utils.Items.Omnitool;
+import static de.stevee.Logic.Items.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Omnitool;
 
 
 public class Item {
 
     public String name;
     public boolean showing;
-    public int prev_quantity;
+    public int prevQuantity;
     public int quantity;
     public boolean farmable = false;
     public int requiredTier;
@@ -59,7 +59,7 @@ public class Item {
     }
 
     public void update() {
-        prev_quantity = quantity;
+        prevQuantity = quantity;
         if (quantity != 0 || showing) showing = true;
     }
 
@@ -67,7 +67,7 @@ public class Item {
         if (Omnitool.tier >= requiredTier) {
             this.update();
             this.addQuantity(1);
-            UI.getINSTANCE().logInfo("%s: %d -> %d".formatted(name, prev_quantity, quantity));
+            UI.getINSTANCE().logInfo("%s: %d -> %d".formatted(name, prevQuantity, quantity));
         } else {
             UI.getINSTANCE().logInfo("Required Omni Tool tier: %d".formatted(requiredTier));
         }

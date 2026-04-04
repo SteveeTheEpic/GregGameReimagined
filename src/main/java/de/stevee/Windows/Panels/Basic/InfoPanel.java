@@ -22,7 +22,7 @@ public interface InfoPanel<T> {
         gui.addWindow(infoPanelWindow);
     }
 
-    default void setInformation(T information) {}
+    void setInformation(T information);
 
     static void updatePosition() {
         TerminalSize screenSize = UI.gui.getScreen().getTerminalSize();

@@ -4,7 +4,7 @@ import de.stevee.Logic.Items.Item;
 
 import java.util.*;
 
-import static de.stevee.Utils.Items.Items_List;
+import static de.stevee.Logic.Items.Items.Items_List;
 
 public class MaterialRegistry {
     private final Map<String, Material> materials = new HashMap<>();

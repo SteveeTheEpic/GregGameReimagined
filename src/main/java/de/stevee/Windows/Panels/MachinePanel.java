@@ -1,6 +1,5 @@
 package de.stevee.Windows.Panels;
 
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Logic.Machine.Machine;
 import de.stevee.Logic.Machine.Module;
@@ -12,9 +11,12 @@ import static de.stevee.Logic.Items.Items.Items_List;
 
 
 public class MachinePanel extends DefaultPanel {
-    private Panel toBeRemoved = null;
+    private Panel machineInfo = new Panel();
+
     public MachinePanel(String title) {
         super(title);
+        machineInfo.setVisible(false);
+        getRoot().addComponent(machineInfo);
     }
 
     public void refresh() {
@@ -34,7 +36,6 @@ public class MachinePanel extends DefaultPanel {
     }
 
     private void initPanel(MultiMachine machine) {
-        Panel panel = new Panel();
         ScrollingLabel label = new ScrollingLabel(machine.name, 10);
         Label count = new Label("Count: %d".formatted(machine.getCount()));
         ActionListBox moduleList = new ActionListBox();
@@ -43,16 +44,24 @@ public class MachinePanel extends DefaultPanel {
             moduleList.addItem(module.getName(), () -> {});
         }
 
-        panel.addComponent(label);
-        panel.addComponent(count);
-        panel.addComponent(new Label("Active Modules: "));
-        panel.addComponent(moduleList);
+        getList().setVisible(false);
 
-        getRoot().addComponent(panel.withBorder(Borders.singleLine()), BorderLayout.Location.CENTER);
-        toBeRemoved = panel;
+        machineInfo.removeAllComponents();
+
+        machineInfo.addComponent(label);
+        machineInfo.addComponent(count);
+        machineInfo.addComponent(new Label("Active Modules: "));
+        machineInfo.addComponent(moduleList);
+
+        machineInfo.setVisible(true);
     }
 
-    public void removePanel() {
-        getRoot().removeComponent(toBeRemoved);
+    public Panel getMachineInfo() {
+        return machineInfo;
+    }
+
+    public void hidePanel() {
+        machineInfo.setVisible(false);
+        getList().setVisible(true);
     }
 }

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Controller {
     public final UI ui;
-    private boolean end = false;
+    public static boolean end = false;
 
     private final Map<KeyType, Runnable> keyTypeMap = new HashMap<>();
     private final Map<Character, Runnable> keyCharMap = new HashMap<>();
@@ -36,14 +36,18 @@ public class Controller {
         });
 
         bindKey(KeyType.Backspace, () -> {
-            if (ui.isSearchGui() && ui.isSearchFocused()) {
-            } else {
+            if (ui.getActiveSection() == Section.MACHINES && ui.getMachinePanel().getMachineInfo().getChildCount() > 0) {
+                ui.getMachinePanel().hidePanel();
+                return;
+            }
+
+            if (!(ui.isSearchGui() && ui.isSearchFocused())) {
                 ui.focusSidebar();
             }
         });
 
         bindKey(KeyType.End, () -> {
-            ui.getProcessPanel().addProcess("test252652325223423qwdawsawd24q34rey", 1000, () -> {});
+            ui.getProcessPanel().addProcess("test252652325223423qwdawsawd24q34rey", 10000, () -> {});
         });
 
         ui.setActiveSection(Section.FARM);
@@ -58,19 +62,13 @@ public class Controller {
         keyCharMap.put(key, task);
     }
 
-    public void setEnd(boolean end) {
-        this.end = end;
-    }
-    public boolean isEnd() {
-        return end;
-    }
     public UI getUI() {
         return ui;
     }
 
     public void runSelected(Section section) throws IOException {
         if (section == Section.QUIT) {
-            setEnd(true);
+            end = true;
             return;
         }
         ui.setActiveSection(section);

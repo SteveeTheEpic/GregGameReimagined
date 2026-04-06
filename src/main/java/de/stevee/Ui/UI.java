@@ -200,5 +200,7 @@ public class UI {
         return INSTANCE;
     }
 
-
+    public MachinePanel getMachinePanel() {
+        return machinePanel;
+    }
 }

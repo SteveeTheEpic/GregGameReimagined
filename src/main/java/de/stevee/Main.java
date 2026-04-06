@@ -38,7 +38,7 @@ public class Main {
         // Initialize scheduler tasks (runs in background)
         initializeScheduler();
 
-        while (!controller.isEnd()) {
+        while (!Controller.end) {
             boolean didWork = gui.getGUIThread().processEventsAndUpdate();
             gui.getScreen().doResizeIfNecessary();
             InfoPanel.updatePosition();

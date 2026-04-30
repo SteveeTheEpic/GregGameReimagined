@@ -1,22 +1,22 @@
 package de.stevee.Windows.Panels;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Machine.Machine;
-import de.stevee.Logic.Machine.Module;
-import de.stevee.Logic.Machine.MultiMachine;
+import de.stevee.API.Machine.Machine;
+import de.stevee.API.Machine.Module;
+import de.stevee.API.Machine.MultiMachine;
 import de.stevee.Ui.Component.ScrollingLabel;
-import de.stevee.Windows.Panels.Basic.DefaultPanel;
+import de.stevee.API.Render.DefaultPanel;
 
-import static de.stevee.Logic.Items.Items.Items_List;
+import static de.stevee.API.Items.Items.Items_List;
 
 
 public class MachinePanel extends DefaultPanel {
-    private Panel machineInfo = new Panel();
+    private Panel machineInfo = new Panel(new BorderLayout());
 
     public MachinePanel(String title) {
         super(title);
         machineInfo.setVisible(false);
-        getRoot().addComponent(machineInfo);
+        getRoot().addComponent(machineInfo, BorderLayout.Location.CENTER);
     }
 
     public void refresh() {
@@ -44,8 +44,6 @@ public class MachinePanel extends DefaultPanel {
             moduleList.addItem(module.getName(), () -> {});
         }
 
-        getList().setVisible(false);
-
         machineInfo.removeAllComponents();
 
         machineInfo.addComponent(label);
@@ -54,6 +52,9 @@ public class MachinePanel extends DefaultPanel {
         machineInfo.addComponent(moduleList);
 
         machineInfo.setVisible(true);
+
+        getList().setVisible(false);
+        getRoot().invalidate();
     }
 
     public Panel getMachineInfo() {

@@ -6,17 +6,17 @@ import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration;
-import de.stevee.Logic.Energy.Energy;
+import de.stevee.API.Energy.Energy;
 import de.stevee.Utils.Lists;
 import de.stevee.Windows.GameWindow;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.Panels.Basic.InfoPanel;
+import de.stevee.API.Render.InfoPanel;
 
 import java.io.StringReader;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import static de.stevee.Logic.Scheduler.Scheduler.scheduler;
+import static de.stevee.API.Scheduler.Scheduler.scheduler;
 import static de.stevee.Ui.UI.gui;
 
 public class Main {

@@ -1,12 +1,13 @@
-package de.stevee.Logic.Material;
+package de.stevee.API.Material;
 
-import de.stevee.Logic.Items.Item;
+import de.stevee.API.Registry.Registry;
+import de.stevee.API.Items.Item;
 
 import java.util.*;
 
-import static de.stevee.Logic.Items.Items.Items_List;
+import static de.stevee.API.Items.Items.Items_List;
 
-public class MaterialRegistry {
+public class MaterialRegistry implements Registry<Material> {
     private final Map<String, Material> materials = new HashMap<>();
 
     public Material register(Material m) {

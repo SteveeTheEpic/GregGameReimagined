@@ -1,4 +1,4 @@
-package de.stevee.Logic.Items;
+package de.stevee.API.Items;
 
 import java.util.ArrayList;
 

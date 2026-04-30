@@ -1,8 +1,8 @@
 package de.stevee.Windows.Panels;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Energy.Energy;
-import de.stevee.Windows.Panels.Basic.DefaultPanel;
+import de.stevee.API.Energy.Energy;
+import de.stevee.API.Render.DefaultPanel;
 
 public class EnergyPanel extends DefaultPanel {
     private static Label energyHeader = new Label("");

@@ -1,17 +1,16 @@
-package de.stevee.Logic.Craft;
+package de.stevee.API.Craft;
 
 
 
-import de.stevee.Logic.Material.Material;
-import de.stevee.Logic.Material.Materials;
+import de.stevee.API.Material.Material;
+import de.stevee.API.Material.Materials;
 import de.stevee.Utils.MaterialUtil;
 
 import java.util.HashMap;
 
-import static de.stevee.Logic.Machine.Machines.NONE;
-import static de.stevee.Logic.Material.Material.FLAGS.*;
-import static de.stevee.Logic.Items.Items.*;
-import static de.stevee.Logic.Machine.Machines.*;
+import static de.stevee.API.Items.Items.*;
+import static de.stevee.API.Machine.Machines.*;
+import static de.stevee.API.Material.Material.FLAGS.*;
 
 
 public class Crafts {
@@ -80,7 +79,7 @@ public class Crafts {
     public static Craft FurnaceC = new Craft("Furnace").addItem(Cobblestone, 8).addOutput(FURNACE, 1).requireMachine(CRAFTING_TABLE);
 
     // Resource Crafts
-    public static Craft PlanksC = new Craft("Planks").addItem(Wood, 1).addOutput(Planks, 4).setDuration(1000);
+    public static Craft PlanksC = new Craft("Planks").addItem(Wood, 1).addOutput(Planks, 4).setCraftDuration(1000);
     public static Craft StoneC = new Craft("Stone").addItem(Cobblestone, 1).addOutput(Stone, 1).requireMachine(FURNACE);
 
 

@@ -1,10 +1,10 @@
-package de.stevee.Logic.Machine;
+package de.stevee.API.Machine;
 
 
 
-import de.stevee.Logic.Items.Item;
+import de.stevee.API.Items.Item;
 
-import static de.stevee.Logic.Machine.Machines.machines;
+import static de.stevee.API.Machine.Machines.machines;
 
 
 public class Machine extends Item {

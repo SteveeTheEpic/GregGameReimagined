@@ -1,6 +1,6 @@
-package de.stevee.Logic.Material;
+package de.stevee.API.Material;
 
-import static de.stevee.Logic.Material.Material.FLAGS.*;
+import static de.stevee.API.Material.Material.FLAGS.*;
 
 public class Materials {
     public static MaterialRegistry materialRegistry = new MaterialRegistry();

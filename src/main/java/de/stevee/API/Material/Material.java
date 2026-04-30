@@ -1,4 +1,4 @@
-package de.stevee.Logic.Material;
+package de.stevee.API.Material;
 
 import java.util.Arrays;
 import java.util.HashSet;

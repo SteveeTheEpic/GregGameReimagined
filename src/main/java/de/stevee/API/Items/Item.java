@@ -1,9 +1,9 @@
-package de.stevee.Logic.Items;
+package de.stevee.API.Items;
 
 import de.stevee.Ui.UI;
 
-import static de.stevee.Logic.Items.Items.Items_List;
-import static de.stevee.Logic.Items.Items.Omnitool;
+import static de.stevee.API.Items.Items.Items_List;
+import static de.stevee.API.Items.Items.Omnitool;
 
 
 public class Item {

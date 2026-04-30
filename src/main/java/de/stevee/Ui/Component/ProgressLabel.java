@@ -1,7 +1,7 @@
 package de.stevee.Ui.Component;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Scheduler.Scheduler;
+import de.stevee.API.Scheduler.Scheduler;
 import de.stevee.Utils.Lists;
 
 import java.util.concurrent.Future;

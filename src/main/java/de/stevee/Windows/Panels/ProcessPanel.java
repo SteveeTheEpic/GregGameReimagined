@@ -1,6 +1,6 @@
 package de.stevee.Windows.Panels;
 
-import de.stevee.Windows.Panels.Basic.ProgressPanel;
+import de.stevee.API.Render.ProgressPanel;
 
 public class ProcessPanel extends ProgressPanel {
 

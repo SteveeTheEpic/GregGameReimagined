@@ -1,4 +1,4 @@
-package de.stevee.Logic.Scheduler;
+package de.stevee.API.Scheduler;
 
 import java.util.concurrent.*;
 

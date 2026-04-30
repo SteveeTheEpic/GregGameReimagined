@@ -2,17 +2,17 @@ package de.stevee.Ui;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Items.Item;
-import de.stevee.Logic.Scheduler.Scheduler;
+import de.stevee.API.Render.SearchPanel;
+import de.stevee.API.Items.Item;
+import de.stevee.API.Scheduler.Scheduler;
 import de.stevee.Windows.Section;
 import de.stevee.Windows.Panels.*;
 import de.stevee.Logic.Controller;
-import de.stevee.Windows.Panels.Basic.*;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import static de.stevee.Logic.Items.Items.Items_List;
+import static de.stevee.API.Items.Items.Items_List;
 
 
 public class UI {

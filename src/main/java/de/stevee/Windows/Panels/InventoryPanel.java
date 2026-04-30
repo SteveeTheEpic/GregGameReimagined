@@ -1,12 +1,12 @@
 package de.stevee.Windows.Panels;
 
-import de.stevee.Logic.Items.Tool;
-import de.stevee.Windows.Panels.Basic.SearchPanel;
+import de.stevee.API.Items.Tool;
+import de.stevee.API.Render.SearchPanel;
 import de.stevee.Ui.UI;
 
 import java.util.ArrayList;
 
-import static de.stevee.Logic.Items.Items.Items_List;
+import static de.stevee.API.Items.Items.Items_List;
 
 
 public class InventoryPanel extends SearchPanel<String> {

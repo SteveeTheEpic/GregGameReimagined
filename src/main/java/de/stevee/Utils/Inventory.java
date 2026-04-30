@@ -2,9 +2,6 @@ package de.stevee.Utils;
 
 
 
-import com.googlecode.lanterna.gui2.Label;
-import de.stevee.Logic.Craft.Craft;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package de.stevee.Logic.Energy;
+package de.stevee.API.Energy;
 
 public class Energy {
     private static long production = 1;
@@ -24,5 +24,31 @@ public class Energy {
 
     public static void subStored(long amount) {
         stored -= amount;
+    }
+
+    enum VF {
+        LV,
+        MV,
+        HV,
+        EV,
+        IV,
+        LuV,
+        ZPM,
+        UV,
+        UHV,
+        UEV,
+        UIV,
+        UMV,
+        MAX;
+
+        private final long voltage;
+
+        VF() {
+            this.voltage = 32L << (2 * this.ordinal());
+        }
+
+        public long getVoltage() {
+            return voltage;
+        }
     }
 }

@@ -1,9 +1,9 @@
-package de.stevee.Logic.Craft;
+package de.stevee.API.Craft;
 
 
 
-import de.stevee.Logic.Items.Item;
-import de.stevee.Logic.Items.Tool;
+import de.stevee.API.Items.Item;
+import de.stevee.API.Items.Tool;
 import de.stevee.Ui.UI;
 
 public class Upgrade extends Craft{
@@ -20,17 +20,17 @@ public class Upgrade extends Craft{
     public void craft() {
         ingredients.forEach((item, quantity) -> {
             // Checks if the Tool is Upgradeable and the Machine is available
-            if ((item.quantity - quantity) >= 0 && machine) {
+            if ((item.quantity - quantity) >= 0 && hasMachine) {
                 item.subQuantity(quantity);
             } else if ((item.quantity - quantity) < 0){
                 ui.logInfo("Insufficient " + item.name);
                 refund = true;
-            } else if (!machine) {
-                ui.logInfo(required.getName() + " is required!");
+            } else if (!hasMachine) {
+                ui.logInfo(requiredMachine.getName() + " is required!");
             }
         });
 
-        if (refund || !machine) {
+        if (refund || !hasMachine) {
             // refunds every item used in the recipe if the upgrade is refunded
             refundAll();
         } else {

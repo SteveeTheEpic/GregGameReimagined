@@ -2,9 +2,9 @@ package de.stevee.Windows.Panels;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Logic.Craft.Craft;
-import de.stevee.Logic.Machine.Machines;
-import de.stevee.Windows.Panels.Basic.InfoPanel;
+import de.stevee.API.Craft.Craft;
+import de.stevee.API.Machine.Machines;
+import de.stevee.API.Render.InfoPanel;
 import de.stevee.Ui.Component.ScrollingLabel;
 
 public class CraftInfoPanel implements InfoPanel<Craft> {
@@ -31,9 +31,9 @@ public class CraftInfoPanel implements InfoPanel<Craft> {
             panel.addComponent(new Label("%s: %d".formatted(entry.getKey().name, entry.getValue())));
         }
 
-        if (craft.required != Machines.NONE) {
-            Label label = new Label("Machine: %s".formatted(craft.required.name));
-            if (craft.required.quantity > 0) label.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
+        if (craft.requiredMachine != Machines.NONE) {
+            Label label = new Label("Machine: %s".formatted(craft.requiredMachine.name));
+            if (craft.requiredMachine.quantity > 0) label.setForegroundColor(TextColor.ANSI.GREEN_BRIGHT);
             else label.setForegroundColor(TextColor.ANSI.RED_BRIGHT);
             panel.addComponent(label);
         }

@@ -1,4 +1,4 @@
-package de.stevee.Windows.Panels.Basic;
+package de.stevee.API.Render;
 
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.Ui.Component.ProgressLabel;

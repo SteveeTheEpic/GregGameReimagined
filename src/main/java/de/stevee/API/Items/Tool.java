@@ -1,4 +1,4 @@
-package de.stevee.Logic.Items;
+package de.stevee.API.Items;
 
 public class Tool extends Item{
     public int prev_tier;

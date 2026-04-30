@@ -1,17 +1,20 @@
-package de.stevee.Logic.Craft;
+package de.stevee.API.Craft;
 
-import de.stevee.Logic.Energy.Energy;
-import de.stevee.Logic.Items.Item;
-import de.stevee.Logic.Machine.Machine;
-import de.stevee.Logic.Items.Items;
+import de.stevee.API.Craft.Modifier.EnergyModifier;
+import de.stevee.API.Craft.Modifier.Modifier;
+import de.stevee.API.Energy.Energy;
+import de.stevee.API.Items.Item;
+import de.stevee.API.Machine.Machine;
+import de.stevee.API.Items.Items;
 import de.stevee.Ui.UI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static de.stevee.Logic.Machine.Machines.NONE;
-import static de.stevee.Logic.Craft.Crafts.crafts;
+import static de.stevee.API.Machine.Machines.NONE;
+import static de.stevee.API.Craft.Crafts.crafts;
 
 public class Craft {
     private final UI ui;
@@ -22,11 +25,10 @@ public class Craft {
     private final String id;
 
     public long requiredEnergy = 0;
-    public long duration = 0;
-    public Machine required = NONE;
-    public boolean machine = true;
+    public long craftDuration = 0;
+    public Machine requiredMachine = NONE;
+    public boolean hasMachine = true;
     public boolean refund = false;
-    public boolean canCraft = true;
 
     private String errorMsg = "This doesn't exist!";
 
@@ -41,8 +43,8 @@ public class Craft {
             inform(errorMsg);
         }
 
-        if (!required.isAvailable()) {
-            UI.getINSTANCE().logInfo(required.getName() + " is required!");
+        if (!requiredMachine.isAvailable()) {
+            UI.getINSTANCE().logInfo(requiredMachine.getName() + " is required!");
             return;
         }
 
@@ -58,26 +60,17 @@ public class Craft {
             return;
         }
 
-        if (!canCraft) {
-            ui.logInfo("Maximum number of this craft running!");
-            return;
-        }
-
         useIngredients();
         Energy.subStored(requiredEnergy);
 
-        if (canCraft) {
-            canCraft = false;
-
-            ui.getProcessPanel().addProcess(id, duration, () -> {
-                products.forEach((item, quantity) -> {
-                    item.addQuantity(quantity);
-                    ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prevQuantity, item.quantity));
-                });
-
-                canCraft = true;
+        ui.getProcessPanel().addProcess(id, craftDuration, () -> {
+            products.forEach((item, quantity) -> {
+                item.addQuantity(quantity);
+                ui.logInfo("Made %s %d -> %d".formatted(item.name, item.prevQuantity, item.quantity));
             });
-        }
+
+
+        });
     }
 
     public Craft addItem(Item item, int quantity) {
@@ -91,18 +84,17 @@ public class Craft {
     }
 
     public Craft requireMachine(Machine machine) {
-        required = machine;
+        requiredMachine = machine;
         return this;
     }
 
     /**
-     *
      * @return {@code List} of items that are missing
      */
     public List<Item> hasEnoughIngredients() {
         ArrayList<Item> missingItems = new ArrayList<>();
         for (Item item : ingredients.keySet()) {
-            if (!((item.quantity - ingredients.get(item)) >= 0 && machine)) {
+            if (!((item.quantity - ingredients.get(item)) >= 0 && hasMachine)) {
                 missingItems.add(item);
             }
         }
@@ -111,8 +103,8 @@ public class Craft {
         return List.of(Items.None);
     }
 
-    public Craft setDuration(long duration) {
-        this.duration = duration;
+    public Craft setCraftDuration(long craftDuration) {
+        this.craftDuration = craftDuration;
         return this;
     }
 
@@ -143,6 +135,11 @@ public class Craft {
 
     public HashMap<Item, Integer> getProducts() {
         return products;
+    }
+
+    public Craft setRequiredEnergy(long requiredEnergy) {
+        this.requiredEnergy = requiredEnergy;
+        return this;
     }
 
     @Override

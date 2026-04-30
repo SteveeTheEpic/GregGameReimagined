@@ -1,4 +1,4 @@
-package de.stevee.Logic.Machine;
+package de.stevee.API.Machine;
 
 public class Module {
     String name;

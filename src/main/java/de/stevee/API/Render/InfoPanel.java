@@ -1,4 +1,4 @@
-package de.stevee.Windows.Panels.Basic;
+package de.stevee.API.Render;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;

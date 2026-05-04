@@ -17,7 +17,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import static de.stevee.API.Scheduler.Scheduler.scheduler;
-import static de.stevee.Ui.UI.gui;
+import static de.stevee.API.Render.UI.UI.gui;
 
 public class Main {
     public static void main(String[] args) throws Exception {

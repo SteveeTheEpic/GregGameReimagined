@@ -1,4 +1,4 @@
-package de.stevee.Ui;
+package de.stevee.API.Render.UI;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;

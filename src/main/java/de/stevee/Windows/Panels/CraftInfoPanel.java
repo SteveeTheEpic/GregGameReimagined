@@ -5,7 +5,7 @@ import com.googlecode.lanterna.gui2.*;
 import de.stevee.API.Craft.Craft;
 import de.stevee.API.Machine.Machines;
 import de.stevee.API.Render.InfoPanel;
-import de.stevee.Ui.Component.ScrollingLabel;
+import de.stevee.API.Render.UI.Component.ScrollingLabel;
 
 public class CraftInfoPanel implements InfoPanel<Craft> {
     public void setInformation(Craft craft) {

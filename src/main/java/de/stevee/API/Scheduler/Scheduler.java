@@ -7,7 +7,6 @@ public class Scheduler {
     private final ScheduledExecutorService executor;
 
     public Scheduler() {
-        // Create a scheduled executor with unlimited threads
         this.executor = Executors.newScheduledThreadPool(0);
     }
 
@@ -27,8 +26,6 @@ public class Scheduler {
 
     /**
      * Execute a task repeatedly at fixed intervals
-     *
-     * @return
      */
     public Future<?> executeAtFixedRate(Runnable task, long initialDelay, long period, TimeUnit unit) {
         return executor.scheduleAtFixedRate(task, initialDelay, period, unit);
@@ -41,16 +38,10 @@ public class Scheduler {
         executor.scheduleWithFixedDelay(task, initialDelay, delay, unit);
     }
 
-    /**
-     * Shutdown the scheduler gracefully
-     */
     public void shutdown() {
         executor.shutdown();
     }
 
-    /**
-     * Check if scheduler is terminated
-     */
     public boolean isTerminated() {
         return executor.isTerminated();
     }

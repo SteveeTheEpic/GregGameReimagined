@@ -4,7 +4,7 @@ import com.googlecode.lanterna.gui2.*;
 import de.stevee.API.Machine.Machine;
 import de.stevee.API.Machine.Module;
 import de.stevee.API.Machine.MultiMachine;
-import de.stevee.Ui.Component.ScrollingLabel;
+import de.stevee.API.Render.UI.Component.ScrollingLabel;
 import de.stevee.API.Render.DefaultPanel;
 
 import static de.stevee.API.Items.Items.Items_List;

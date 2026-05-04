@@ -10,6 +10,7 @@ import static de.stevee.API.Items.Items.Items_List;
 public class MaterialRegistry implements Registry<Material> {
     private final Map<String, Material> materials = new HashMap<>();
 
+    @Override
     public Material register(Material m) {
         if (materials.containsKey(m.id()))
             throw new IllegalArgumentException("Duplicate material: " + m.id());

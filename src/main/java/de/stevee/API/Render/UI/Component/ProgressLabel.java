@@ -1,4 +1,4 @@
-package de.stevee.Ui.Component;
+package de.stevee.API.Render.UI.Component;
 
 import com.googlecode.lanterna.gui2.*;
 import de.stevee.API.Scheduler.Scheduler;

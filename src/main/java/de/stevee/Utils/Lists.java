@@ -1,7 +1,7 @@
 package de.stevee.Utils;
 
-import de.stevee.Ui.Component.ProgressLabel;
-import de.stevee.Ui.Component.ScrollingLabel;
+import de.stevee.API.Render.UI.Component.ProgressLabel;
+import de.stevee.API.Render.UI.Component.ScrollingLabel;
 
 import java.util.ArrayList;
 

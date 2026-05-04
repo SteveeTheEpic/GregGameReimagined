@@ -1,6 +1,9 @@
 package de.stevee.API.Machine;
 
+import de.stevee.API.Craft.Modifier.Modifier;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MultiMachine extends EnergyMachine{
@@ -14,6 +17,16 @@ public class MultiMachine extends EnergyMachine{
 
     public List<Module> getModules() {
         return modules.stream().toList();
+    }
+
+    public List<Modifier> getAllModifiers() {
+        List<Modifier> all = new ArrayList<>();
+
+        getModules().forEach(module -> {
+            all.addAll(Arrays.stream(module.getModifiers()).toList());
+        });
+
+        return all;
     }
 
     public MultiMachine addModule(Module module) {

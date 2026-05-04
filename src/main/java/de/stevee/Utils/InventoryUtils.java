@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class Inventory {
+public class InventoryUtils {
     public static ArrayList<String> getMatches(HashMap<String, ?> list, String match) {
         if (match == null) match = "";
 

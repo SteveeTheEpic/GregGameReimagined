@@ -2,7 +2,7 @@ package de.stevee.Windows.Panels;
 
 import de.stevee.API.Items.Tool;
 import de.stevee.API.Render.SearchPanel;
-import de.stevee.Ui.UI;
+import de.stevee.API.Render.UI.UI;
 
 import java.util.ArrayList;
 

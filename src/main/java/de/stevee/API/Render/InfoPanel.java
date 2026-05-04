@@ -3,7 +3,7 @@ package de.stevee.API.Render;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Ui.UI;
+import de.stevee.API.Render.UI.UI;
 
 import java.io.IOException;
 import java.util.Set;

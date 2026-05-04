@@ -1,13 +1,19 @@
 package de.stevee.API.Machine;
 
+import de.stevee.API.Craft.Modifier.Modifier;
+
 public class Module {
     String name;
-    boolean available;
-    public Module(String name) {
+    Modifier[] modifiers;
+
+    public Module(String name, Modifier... modifiers) {
         this.name = name;
-        available = false;
+        this.modifiers = modifiers;
     }
 
+    public Modifier[] getModifiers() {
+        return modifiers;
+    }
     public String getName() {
         return name;
     }

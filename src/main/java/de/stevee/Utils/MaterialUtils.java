@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import static de.stevee.API.Items.Items.Items_List;
 
-public class MaterialUtil {
+public class MaterialUtils {
 
     /**
      * @param flag

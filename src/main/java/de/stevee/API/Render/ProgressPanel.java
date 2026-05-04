@@ -1,8 +1,8 @@
 package de.stevee.API.Render;
 
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Ui.Component.ProgressLabel;
-import de.stevee.Ui.Component.ProgressList;
+import de.stevee.API.Render.UI.Component.ProgressLabel;
+import de.stevee.API.Render.UI.Component.ProgressList;
 
 public class ProgressPanel {
     private final Panel root;

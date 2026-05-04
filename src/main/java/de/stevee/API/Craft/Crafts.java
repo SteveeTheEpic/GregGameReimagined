@@ -4,7 +4,7 @@ package de.stevee.API.Craft;
 
 import de.stevee.API.Material.Material;
 import de.stevee.API.Material.Materials;
-import de.stevee.Utils.MaterialUtil;
+import de.stevee.Utils.MaterialUtils;
 
 import java.util.HashMap;
 
@@ -22,48 +22,48 @@ public class Crafts {
             for (Material.FLAGS flags : Material.FLAGS.values()) {
                 if (material.hasFlag(flags)) {
                     if (flags == Material.FLAGS.ORE && material.hasFlag(INGOT)) {
-                        new Craft("%s %s".formatted(material.id(), INGOT.displayName())).addItem(MaterialUtil.getMaterial(Material.FLAGS.ORE, material), 1).addOutput(MaterialUtil.getMaterial(INGOT, material), 1).requireMachine(NONE);
+                        new Craft("%s %s".formatted(material.id(), INGOT.displayName())).addItem(MaterialUtils.getMaterial(Material.FLAGS.ORE, material), 1).addOutput(MaterialUtils.getMaterial(INGOT, material), 1).requireMachine(NONE);
                     }
 
                     if (flags == PLATE && material.hasFlag(INGOT)) {
-                        new Craft("%s %s".formatted(material.id(), PLATE.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(PLATE, material), 1).requireMachine(BENDER);
+                        new Craft("%s %s".formatted(material.id(), PLATE.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(PLATE, material), 1).requireMachine(BENDER);
                     }
 
                     if (flags == ROD && material.hasFlag(INGOT)) {
-                        new Craft("%s %s".formatted(material.id(), ROD.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(ROD, material), 1).requireMachine(LATHE);
+                        new Craft("%s %s".formatted(material.id(), ROD.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(ROD, material), 1).requireMachine(LATHE);
                     }
 
                     if (flags == WIRE && material.hasFlag(INGOT)) {
-                        new Craft("%s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(WIRE, material), 2).requireMachine(WIRE_MILL);
+                        new Craft("%s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(WIRE, material), 2).requireMachine(WIRE_MILL);
                     }
 
                     if (flags == FINE_WIRE && material.hasFlag(WIRE)) {
-                        new Craft("Fine %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtil.getMaterial(WIRE, material), 1).addOutput(MaterialUtil.getMaterial(FINE_WIRE, material), 2).requireMachine(WIRE_MILL);
+                        new Craft("Fine %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtils.getMaterial(WIRE, material), 1).addOutput(MaterialUtils.getMaterial(FINE_WIRE, material), 2).requireMachine(WIRE_MILL);
                     }
 
                     if (flags == FOIL && material.hasFlag(WIRE)) {
-                        new Craft("%s %s".formatted(material.id(), FOIL.displayName())).addItem(MaterialUtil.getMaterial(PLATE, material), 1).addOutput(MaterialUtil.getMaterial(FOIL, material), 2).requireMachine(WIRE_MILL);
+                        new Craft("%s %s".formatted(material.id(), FOIL.displayName())).addItem(MaterialUtils.getMaterial(PLATE, material), 1).addOutput(MaterialUtils.getMaterial(FOIL, material), 2).requireMachine(WIRE_MILL);
                     }
 
                     if (flags == HAND_CRAFTABLE) {
                         if (material.hasFlag(PLATE) && material.hasFlag(INGOT)) {
-                            new Craft("Handmade %s %s".formatted(material.id(), PLATE.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(PLATE, material), 1).requireMachine(BENDER);
+                            new Craft("Handmade %s %s".formatted(material.id(), PLATE.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(PLATE, material), 1).requireMachine(BENDER);
                         }
 
                         if (material.hasFlag(ROD) && material.hasFlag(INGOT)) {
-                            new Craft("Handmade %s %s".formatted(material.id(), ROD.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(ROD, material), 1).requireMachine(LATHE);
+                            new Craft("Handmade %s %s".formatted(material.id(), ROD.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(ROD, material), 1).requireMachine(LATHE);
                         }
 
                         if (material.hasFlag(WIRE) && material.hasFlag(INGOT)) {
-                            new Craft("Handmade %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtil.getMaterial(INGOT, material), 1).addOutput(MaterialUtil.getMaterial(WIRE, material), 2).requireMachine(WIRE_MILL);
+                            new Craft("Handmade %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtils.getMaterial(INGOT, material), 1).addOutput(MaterialUtils.getMaterial(WIRE, material), 2).requireMachine(WIRE_MILL);
                         }
 
                         if (material.hasFlag(FINE_WIRE) && material.hasFlag(FOIL)) {
-                            new Craft("Handmade Fine %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtil.getMaterial(FOIL, material), 1).addOutput(MaterialUtil.getMaterial(FINE_WIRE, material), 1).requireMachine(WIRE_MILL);
+                            new Craft("Handmade Fine %s %s".formatted(material.id(), WIRE.displayName())).addItem(MaterialUtils.getMaterial(FOIL, material), 1).addOutput(MaterialUtils.getMaterial(FINE_WIRE, material), 1).requireMachine(WIRE_MILL);
                         }
 
                         if (material.hasFlag(FOIL) && material.hasFlag(WIRE)) {
-                            new Craft("Handmade %s %s".formatted(material.id(), FOIL.displayName())).addItem(MaterialUtil.getMaterial(PLATE, material), 1).addOutput(MaterialUtil.getMaterial(FOIL, material), 1).requireMachine(WIRE_MILL);
+                            new Craft("Handmade %s %s".formatted(material.id(), FOIL.displayName())).addItem(MaterialUtils.getMaterial(PLATE, material), 1).addOutput(MaterialUtils.getMaterial(FOIL, material), 1).requireMachine(WIRE_MILL);
                         }
                     }
                 }

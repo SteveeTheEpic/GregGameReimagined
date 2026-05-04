@@ -2,11 +2,11 @@ package de.stevee.API.Render;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.gui2.*;
-import de.stevee.Ui.Component.HoverActionListBox;
+import de.stevee.API.Render.UI.Component.HoverActionListBox;
 
 import java.util.*;
 
-import static de.stevee.Utils.Inventory.getMatches;
+import static de.stevee.Utils.InventoryUtils.getMatches;
 
 public class SearchPanel<T> {
     private final Panel root;

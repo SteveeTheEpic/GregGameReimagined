@@ -1,4 +1,4 @@
-package de.stevee.API.Machine;
+package de.stevee.API.Machine.Module;
 
 import de.stevee.API.Craft.Modifier.Modifier;
 
